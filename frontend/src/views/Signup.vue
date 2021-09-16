@@ -1,14 +1,17 @@
 <template>
     <Header />
+    <SignupForm />
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
+import SignupForm from '@/components/SignupForm'
 
 export default {
     name: 'Signup',
     components: {
-        Header
+        Header,
+        SignupForm
     }
 }
 </script>

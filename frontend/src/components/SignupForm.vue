@@ -1,18 +1,23 @@
 <template>
     <div id="container-form">
         <form id="login-form">
-            <h1>Bienvenue</h1>
+            <h1>Inscrivez-vous</h1>
+                <label for="signup-firstname">Prénom</label>
+                <input type="text" id="signup-firstname" placeholder="Saississez votre prénom" required>
+
+                <label for="signup-name">Nom</label>
+                <input type="text" id="signup-name" placeholder="Saississez votre nom" required>
+
                 <label for="connexion-email">Email</label>
                 <input type="text" id="connexion-email" placeholder="Saississez votre email" required>
 
                 <label for="connexion-password">Mot de passe</label>
                 <input type="password" id="connexion-password" placeholder=" Saisissez votre mot de passe" required>
 
-                <button id="btn">Connexion</button>
+                <button id="btn">S'inscrire</button>
 
                     <div class="subscribe-link">
-                            <p>Vous n'avez pas de compte ?</p>
-                            <router-link id="link" to="/signup">S'inscrire</router-link>
+                            <router-link id="link" to="/">Accueil</router-link>
                     </div>
         </form>
     </div>
@@ -20,20 +25,10 @@
 
 <script>
 export default {
-    name: 'ConnexionForm'
+    name: 'SignupForm'
 }
 </script>
 
 <style scoped>
-    p {
-        margin: 0px;
-    }
-
-    .subscribe-link {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-
-    }
 
 </style>
