@@ -1,0 +1,24 @@
+<template>
+    <div class="header">
+        <img src="../assets/logo-h.png" alt="logo">
+    </div>
+</template>
+
+
+<script>
+export default {
+    name: 'Header' 
+}
+</script>
+
+
+<style scoped>
+    .header {
+        border-bottom: 2px groove #FFD7d7;
+        width: 100%;
+    }
+    .header img {
+        max-width: 300px;
+    }
+    
+</style>
