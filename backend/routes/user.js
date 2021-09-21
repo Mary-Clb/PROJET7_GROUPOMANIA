@@ -5,7 +5,7 @@ const auth = require('../middlewares/auth');
 const userCtrl = require('../controllers/user');
 
 router.post('/signup', userCtrl.signup);
-//routeur.post('/login', userCtrl.login);
+router.post('/login', userCtrl.login);
 //routeur.delete('/:id', auth, userCtrl.deleteUser);
 
 

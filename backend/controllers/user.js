@@ -1,6 +1,7 @@
+
+const models = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const models = require('../models');
 const passwordValidator = require('password-validator');
 const validate = require('validate-mail');
 
@@ -41,19 +42,57 @@ exports.signup = (req, res, next) => {
                         })
                     })
                     .catch(err => {
-                        return res.status(500).json({ 'error':'impossible de vérifier l\'utilisateur'});
+                        return res.status(500).json({ 'error':'impossible d\'ajouter l\'utilisateur'});
+                        });
                     });
-                });
     
             } else {
                 return res.status(409).json({ 'error':'Utilisateur déjà existant'});
             }
+        })
+        .catch(err => {
+            return res.status(500).json({ 'error' : 'Impossible de vérifier l\'utilisateur'});
         });
-
-            
-} else if (!validate(req.body.email) || !schema.validate(req.body.password)){
-    return res.status(401).json({ message:'Adresse email ou mot de passe incorrect'})
-    } else {
-        return res.status(500).json({ message: 'erreur'})
+        
+} else {
+        return res.status(500).json({ message: 'Adresse mail ou mot de passe non valide'})
     };
+}; 
+
+
+
+exports.login = (req, res, next) => {
+    if (email == null || password == null) {
+        return res.status(400).json({ message:'Veuillez remplir tous les champs'});
+    }
+
+    models.user.findOne({
+        attributes: ['email'],
+        where: { email: req.body.email }
+    })
+    .then(userFound => {
+        if (userFound) {
+
+            bcrypt.compare(password, userFound.password, function(errBcrypt, resBcrypt) {
+                if(resBcrypt) {
+                    return res.status(200).json ({
+                        message: "connexion réussie",
+                        userId: newUser.id,
+                        role: newUser.isAdmin,
+                        userName: newUser.name,
+                        token: jwt.sign({ userId: newUser.id}, process.env.AUTH_SECRET, { expiresIn: '24h'})
+                    });
+                } else {
+                    return res.status(403).json({ message:'mot de passe invalide'});
+                }
+            });
+
+    } else {
+        return res.status(404).json({ message: 'Utilisateur introuvable'});
+        }
+    })
+    .catch(err => {
+        return res.status(500).json({ message: 'Impossible de vérifier l\'utilisateur'});
+    });
+
 };

@@ -22,11 +22,16 @@ app.use((req, res, next) => {
   });
 
 
-app.use(bodyParser.json());
 app.use(cors());
 app.use(helmet());
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//dataBase.sequelize.sync()
+
 //ROUTES
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use('/api/auth', userRoutes);
 app.use('/api/post', postRoutes);
 
