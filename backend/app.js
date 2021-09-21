@@ -1,9 +1,14 @@
-//IMPORT DOTENV
-/*require('dotenv').config();*/
+require('dotenv').config();
 
 
 //IMPORT PLUGINS
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const helmet = require('helmet');
+
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
 
 const app = express();
 
@@ -16,8 +21,13 @@ app.use((req, res, next) => {
   });
 
 
-//ROUTEURS
+app.use(bodyParser.json());
+app.use(cors());
+app.use(helmet());
 
+//ROUTES
+app.use('/api/auth', userRoutes);
+app.use('/api/post', postRoutes);
 
 
 module.exports = app;

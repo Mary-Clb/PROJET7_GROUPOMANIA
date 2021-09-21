@@ -6,7 +6,12 @@ SETTINGS
 * install nodemon : npm install -g nodemon
 * install express : npm --save express
 * create 'app.js' file for app settings
-install body-parser : npm install --save body-parser
-install b-crypt : npm install --save bcrypt (use bcrypt.hash)
-install jsonwebtoken : npm install --save jsonwebtoken
-create '.env' file for token and MySQL password (rename as '.env.example' and let the user complete with the datas - put .env in the .gitignore)
+* install body-parser : npm install --save body-parser
+* install b-crypt : npm install --save bcrypt (use bcrypt.hash)
+* install jsonwebtoken : npm install --save jsonwebtoken
+* install sequelize
+* install password-validator
+* install validate-mail
+* install cors
+* install helmet
+create '.env' file for token and MySQL passwords (rename as '.env.example' and let the user complete with the datas - put .env in the .gitignore)
