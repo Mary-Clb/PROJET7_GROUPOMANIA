@@ -6,6 +6,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
+const path = require('path');
 
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
