@@ -19,7 +19,11 @@ schema
 
 
 exports.signup = (req, res, next) => {
-   if (validate(req.body.email) && schema.validate(req.body.password)) {
+    if (!req.body.firstname || !req.body.name || !req.body.email || !req.body.password) {
+        return res.status(400).json({ message:'Veuillez remplir tous les champs'});
+    }
+
+    if (validate(req.body.email) && schema.validate(req.body.password)) {
         
         models.user.findOne({
             attributes: ['email'],
@@ -62,37 +66,49 @@ exports.signup = (req, res, next) => {
 
 
 exports.login = (req, res, next) => {
-    if (email == null || password == null) {
+    if (!req.body.email || !req.body.password) {
         return res.status(400).json({ message:'Veuillez remplir tous les champs'});
     }
 
     models.user.findOne({
-        attributes: ['email'],
-        where: { email: req.body.email }
+        where: { email: req.body.email}
     })
-    .then(userFound => {
+    .then(function(userFound) {
+        console.log('utilisateur : ' + userFound.firstname + ' ' + userFound.name)
         if (userFound) {
-
-            bcrypt.compare(password, userFound.password, function(errBcrypt, resBcrypt) {
+                bcrypt.compare(req.body.password, userFound.password, function(errBcrypt, resBcrypt) {
                 if(resBcrypt) {
+                    console.log('mot de passe correct')
                     return res.status(200).json ({
-                        message: "connexion réussie",
-                        userId: newUser.id,
-                        role: newUser.isAdmin,
-                        userName: newUser.name,
-                        token: jwt.sign({ userId: newUser.id}, process.env.AUTH_SECRET, { expiresIn: '24h'})
+                        message: 'connexion réussie',
+                        userId: userFound.id,
+                        token: jwt.sign({ userId: userFound.id}, process.env.AUTH_SECRET, { expiresIn: '24h'})
                     });
                 } else {
+                    console.log('mot de passe incorrect dans bdd')
                     return res.status(403).json({ message:'mot de passe invalide'});
                 }
-            });
+            })
 
-    } else {
+        } else {
+        console.log('Utilisateur non trouvé');
         return res.status(404).json({ message: 'Utilisateur introuvable'});
         }
     })
     .catch(err => {
         return res.status(500).json({ message: 'Impossible de vérifier l\'utilisateur'});
-    });
+    })
 
 };
+
+
+exports.deleteMyAccount = (req, res, next) => {
+        console.log(" USER ACCOUNT DELETION PROCESS ")
+        console.log(" userId is: " + req.params.id)
+
+            models.user.destroy({ where: { id: req.params.id }}) 
+                .then( () => res.status(200).json({message: "Votre compte a bien été supprimé"}))
+                .catch( err => {
+                    return res.status(401).json({ message: 'Impossible de supprimer l\'utilisateur'})
+                });
+            };

@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
+const dataBase = require('./models');
 
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
@@ -28,7 +29,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//dataBase.sequelize.sync()
+dataBase.sequelize.sync()
 
 //ROUTES
 app.use("/images", express.static(path.join(__dirname, "images")));

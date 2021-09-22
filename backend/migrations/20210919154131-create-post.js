@@ -20,13 +20,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      date: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       content: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      likes: {
+        allowNull: true,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
