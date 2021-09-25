@@ -15,14 +15,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           allowNull: false
         }
-      })
+      }),
+      models.post.hasMany(models.likes)
     }
   };
   post.init({
     userId: DataTypes.INTEGER,
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    likes: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'post',

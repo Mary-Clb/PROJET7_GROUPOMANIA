@@ -104,9 +104,12 @@ exports.login = (req, res, next) => {
 
 exports.deleteMyAccount = (req, res, next) => {
         console.log(" USER ACCOUNT DELETION PROCESS ")
-        console.log(" userId is: " + req.params.id)
+        console.log(" userId : " + req.params.id)
 
-            models.user.destroy({ where: { id: req.params.id }}) 
+            models.likes.destroy({where: { userId: req.params.id }})
+            models.comment.destroy({where: { userId: req.params.id }})
+            models.post.destroy({where: { userid: req.params.id }})
+            models.user.destroy({ where: { id: req.params.id }})
                 .then( () => res.status(200).json({message: "Votre compte a bien été supprimé"}))
                 .catch( err => {
                     return res.status(401).json({ message: 'Impossible de supprimer l\'utilisateur'})
