@@ -1,10 +1,16 @@
 const models = require('../models');
 const fs = require('fs');
+const { request } = require('http');
 
 //ROUTES FOR POSTS//
 
 //CREATE POST
 exports.createPost = (req, res, next) => {
+
+    const token = req.headers.authorization.split(' ')[1]; //On extrait le token du header de la requête
+    const decodedToken = jwt.verify(token, process.env.AUTH_SECRET); //On utilise la méthode Verify() de JWT pour vérfier que le token est valide
+    const userId = decodedToken.userId;
+
         if (!req.body.title || !req.body.content) {
             return res.status(400).json({ message:'Veuillez remplir tous les champs'})
         } else {
@@ -15,7 +21,7 @@ exports.createPost = (req, res, next) => {
             imagePost = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
         }
         const newPost = models.post.create({
-            userId: req.body.userId,
+            userId: req.body.userId, // a remplacer par la constante userId
             title: req.body.title,
             content: imagePost,
             likes: 0
@@ -117,6 +123,7 @@ exports.deletePost = (req, res, next) => {
             const filename = postFound.content.split('/images/')[1];
             fs.unlink(`images/${filename}`, () => {
                 models.likes.destroy({ where: { postId: req.params.id }})
+                models.comment.destroy({ where: { postId: req.params.id}})
                 models.post.destroy({ where: { id: req.params.id }})
                     .then(() => res.status(200).json({ message: 'Votre post a bien été supprimé'}))
                     .catch(error => res.status(400).json({ 'error': 'impossible de supprimer le post'}))
@@ -169,5 +176,65 @@ exports.getAllComments = (req, res, next) => {
     .then(comment => {res.status(200).json(comment) })
     .catch(err => res.status(400).json({ 'err': 'impossible d\'afficher les commentaires'}))
 
+
+};
+
+//DELETE A COMMENT
+exports.deleteComment = (req, res, next) => {
+    console.log('Vous allez supprimer le commentaire')
+    models.comment.destroy({ where: { id: req.params.id}})
+        .then(() => res.status(200).json({ message: 'commentaire supprimé'}))
+        .catch(err => res.status(400).json({ err : 'Impossible de supprimer le commentaire'}))
+
+};
+
+//ROUTES FOR LIKES
+
+//ADD A LIKE
+exports.likeAPost = (res, req, next) => {
+
+    const token = req.headers.authorization.split(' ')[1]; //On extrait le token du header de la requête
+    const decodedToken = jwt.verify(token, process.env.AUTH_SECRET); //On utilise la méthode Verify() de JWT pour vérfier que le token est valide
+    const userId = decodedToken.userId;
+
+    models.likes.findOne ({
+        where: {
+            [Op.and] : [
+                { postId: req.params.id},
+                { userId: userId}
+            ]
+        }
+    })
+    .then(function(likeFound) {
+        if(!likeFound) {
+            models.likes.update ({
+                postId: req.params.id,
+                userId: userId
+            })
+            .then(() => res.status(200).json ({ message: 'Vous avez liké ce post'}))
+            .catch(err => res.status(400).json ({ err: 'Impossible de liker le post'}))
+        } else {
+            return res.status(401).json({ message: 'Vous avez déjà liké ce post'})
+        }
+
+    })
+    .catch(err => res.status(500).json({ err: 'Impossible d\'accéder à la requête'}))
+
+
+};
+
+//GET ALL LIKE FOR ONE POST
+
+exports.getAllLikes = (req, res, next) => {
+    models.likes.findAll ({
+        where: { postId: req.params.id},
+        include: {
+            model: models.user,
+            required: true,
+            attributes: [ 'firstname', 'name']
+        }
+    })
+    .then(allLikes => { res.status(200).json(allLikes) })
+    .catch(err => res.status(403).json({ err: 'Impossible d\'exécuter la requête'}))
 
 };
