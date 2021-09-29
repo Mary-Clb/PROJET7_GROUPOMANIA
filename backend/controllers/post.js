@@ -21,7 +21,7 @@ exports.createPost = (req, res, next) => {
             imagePost = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
         }
         const newPost = models.post.create({
-            userId: req.body.userId, // a remplacer par la constante userId
+            userId: userId, 
             title: req.body.title,
             content: imagePost,
             likes: 0
