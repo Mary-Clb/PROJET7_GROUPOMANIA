@@ -41,7 +41,13 @@ exports.createPost = (req, res, next) => {
 
 //READ ALL POST
 exports.getAllPosts = (req, res, next) => {
-    models.post.findAll()
+    models.post.findAll({
+        include: {
+            model: models.user,
+            required: true,
+            attributes: ['firstname', 'name']
+        }
+    })
         .then((posts) => {
             res.status(200).json(posts);
         })

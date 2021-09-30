@@ -68,15 +68,9 @@ export default {
                 {
                     headers: {'Content-Type': 'application/json'}
                 })
-                .then(response => {  
-                    const user = {
-                        token: response.data.token,
-                        userId: response.data.userId,
-                        isAdmin: response.data.isAdmin
-                    }
-                    localStorage.setItem('user', JSON.stringify(user));
-                    alert('Merci de votre inscription. Vous allez être redirigé vers la page de connexion')
-                    router.push({ path:'/'});
+                .then(() => {
+                    alert('Inscription réussie, vous allez être redirigé sur la page de connexion');
+                    router.push({ path: '/'});
                 })
                 .catch((error) => {
                     alert(error.status + 'Nous sommes désolés, une erreur s\'est produite')
@@ -84,6 +78,7 @@ export default {
                 })
 
         } else {
+            alert('Inscription impossible: merci de vérifier les informations saisies')
             console.log('Impossible d\'effectuer l\'inscription de l\'utilisateur')
             return this.invalid = true
         }
