@@ -84,7 +84,7 @@ exports.getUserPosts = (req, res, next) => {
         }, 
     })
     .then((posts) => {
-        res.status(200).json({ posts })
+        res.status(200).json(posts)
     })
     .catch(error => res.status(400).json({ error : 'Impossible de récupérer les posts'}))
 

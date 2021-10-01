@@ -15,6 +15,7 @@ export default {
 <style scoped>
     .header {
         border-bottom: 2px groove #FFD7d7;
+        margin-bottom: 10px;
         width: 100%;
     }
     .header img {

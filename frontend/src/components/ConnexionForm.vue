@@ -52,13 +52,16 @@ export default {
             headers: { 'Content-Type' : 'application/json'}
         })
         .then((response) => {
-            const loggedUser = {
+            localStorage.setItem("token", response.data.token)
+            localStorage.setItem("userId", response.data.userId)
+            localStorage.setItem("isAdmin", response.data.isAdmin)
+            /*const loggedUser = {
                 token: response.data.token,
                 userId: response.data.userId,
                 firstname: response.data.firstname,
                 name: response.data.name
             }
-            localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+            localStorage.setItem('loggedUser', JSON.stringify(loggedUser));*/
             alert('Bienvenue , vous êtes maintenant connecté')
             router.push({ path: '/dashboard'});
         })

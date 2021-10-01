@@ -1,25 +1,21 @@
 <template>
     <Header />
-    <Navbar />
-    <div id="page-container">
-        <Post />
-    </div>
+    <router-link to="/" id="link" class="link-home">Accueil</router-link>
+    <div class="page-container">   
+        <UserPosts />
+    </div> 
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
-import Post from '@/components/Post.vue'
-import Navbar from '@/components/Navbar.vue'
+import UserPosts from '@/components/UserPosts.vue'
 
 export default {
-    name: 'Dashboard',
+    name: 'Userprofile',
     components: {
         Header,
-        Navbar,
-        Post
-        
+        UserPosts
     }
-
 }
 </script>
 

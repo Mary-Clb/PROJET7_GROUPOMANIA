@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
       next(); //Sinon, on continue avec l'exécution de la requête demandée par l'utilisateur
     }
   } catch {
+    console.log('wrong token')
     res.status(401).json({
       error: new Error('Invalid request!')
     });

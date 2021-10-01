@@ -1,6 +1,5 @@
 <template>
-    <div class="container-post">
-                    <!--NOM UTILISATEUR-->
+    <div class="container-post">  
         <article class="post" v-for="post in posts" :key="post.id">
             <div class="username">
                <img src="" alt=""> <span class="firstname"></span>{{ post.user.firstname + ' ' }}<span class="name">{{ post.user.name.toUpperCase() }}</span>
@@ -28,56 +27,54 @@
                             </div>
                         </div>
         </article>
-
+      
 
     </div>
-    
 </template>
 
 <script>
-import axios from 'axios';
-//import routeur from '../router';
+import axios from 'axios'
+//import router from '../router'
+
 
 export default {
-   name: 'Post',
+    name: 'UserPosts',
 
-   data() {
-       return {
-           empty: false,
-           isAdmin: false,
-           posts: []
-       }
-   },
-
-   mounted() {
-       this.getAllPost();
-   },
-
-
-   methods: {
-       getAllPost() {
-           axios.get("http://localhost:3000/api/post/", {
-               headers: {
-                   'Content-Type': 'application/json',
-                   'Authorization': 'Bearer ' + localStorage.getItem("token")
-               }
-           })
-           .then((res) => {
-               console.log(res);
-               this.posts = res.data
-           })
-           .catch((err) => {
-               console.log(err +'Impossible de récupérer les posts')
-           })
-       },
+    data() {
+        return {
+            posts: []
+        }
     },
 
+    mounted() {
+        this.getUserPosts();
+    },
 
+    methods: {
+        getUserPosts () {
+            const userId = localStorage.getItem('userId');
+
+            axios.get("http://localhost:3000/api/post/all/" + userId, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then((res) => {
+                console.log(res);
+                this.posts = res.data
+            })
+            
+            .catch((err) => {
+                console.log(err + ' Impossible de récuperer les posts de l\'utilisateur')
+            })
+        },
+
+    }
 }
-
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 
 .container-post {
     width: 95%;
@@ -157,6 +154,5 @@ h1 {
         margin: 2px 0px 2px 0px;
     }
 }
+
 </style>
-
-

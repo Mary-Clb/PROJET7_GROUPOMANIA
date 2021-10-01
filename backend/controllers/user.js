@@ -79,10 +79,12 @@ exports.login = (req, res, next) => {
                 bcrypt.compare(req.body.password, userFound.password, function(errBcrypt, resBcrypt) {
                 if(resBcrypt) {
                     console.log('mot de passe correct')
+                    console.log(userFound.id)
                     return res.status(200).json ({
                         message: 'connexion réussie',
                         userId: userFound.id,
-                        token: jwt.sign({ userId: userFound.id}, process.env.AUTH_SECRET, { expiresIn: '24h'})
+                        isAdmin: userFound.isAdmin,
+                        token: jwt.sign({ userId: userFound.id }, process.env.AUTH_SECRET, { expiresIn: '24h'})
                     });
                 } else {
                     console.log('mot de passe incorrect dans bdd')
