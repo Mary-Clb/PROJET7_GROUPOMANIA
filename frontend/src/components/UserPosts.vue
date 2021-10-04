@@ -27,7 +27,6 @@
                             </div>
                         </div>    
         </article>
-         <div v-show="empty" key="empty"  class="info-message">{{ msgForEmpty }}</div>
     </div>
    
 </template>
@@ -42,14 +41,11 @@ export default {
     data() {
         return {
             posts: [],
-            empty: false,
-            msgForEmpty: ''
         }
     },
 
     mounted() {
         this.getUserPosts();
-        this.noMessages();
     },
 
     methods: {
@@ -70,13 +66,6 @@ export default {
                 console.log(err + ' Impossible de récuperer les posts de l\'utilisateur')
             })
         },
-
-        noMessages () {
-            if (this.posts == 0) {
-                this.empty=true;
-                this.msgForEmpty='Vous n\'avez publié aucun message pour le moment';
-            }
-        }
 
 
     }

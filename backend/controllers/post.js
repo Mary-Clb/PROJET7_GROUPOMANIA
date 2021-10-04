@@ -39,7 +39,7 @@ exports.getAllPosts = (req, res, next) => {
         include: {
             model: models.user,
             required: true,
-            attributes: ['firstname', 'name']
+            attributes: ['firstname', 'name', 'id']
         },
         order: [['createdAt', 'DESC']],
     })
@@ -56,7 +56,8 @@ exports.getAllPosts = (req, res, next) => {
 exports.getOnePost = (req, res, next) => {
 
         models.post.findOne({
-            where: { id: req.params.id}
+            where: { id: req.params.id},
+            
         })
         .then((post) => {
             res.status(200).json(post)
@@ -77,6 +78,7 @@ exports.getUserPosts = (req, res, next) => {
             required: true,
             attributes: ['firstname', 'name']
         }, 
+        order: [['createdAt', 'DESC']],
     })
     .then((posts) => {
         res.status(200).json(posts)

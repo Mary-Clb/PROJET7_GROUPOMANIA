@@ -1,13 +1,13 @@
 <template>
 <div class="container-post">
     <div class="post">
-        <h2>Bonjour {{ this.user.firstname}},</h2>
+        <h2>Bonjour {{ user.firstname }},</h2>
         <form class="post__form">
             <label for="post-title">Donnez un titre à votre article :</label>
             <input type="text" id="post-title" placeholder="Titre..." aria-label="Ecrivez le titre ici" v-model="input.postTitle" required>
 
             <div class="post__glimpse" v-if="this.input.postContent">
-            <img :src="this.input.postContent" class="post__glimpse--img" alt="image de l'article" />
+            <img :src="input.postContent" class="post__glimpse--img" alt="image de l'article" />
             </div>
 
             <label for="post-content--file">Partagez son contenu :</label>
@@ -99,6 +99,11 @@ export default {
     width: 95%;
     margin: 0px auto;
 }
+ @media screen and (min-width: 769px) {
+        .container-post {
+            width: 600px ;
+        }
+    }
 
 .post {
     width: 90%;

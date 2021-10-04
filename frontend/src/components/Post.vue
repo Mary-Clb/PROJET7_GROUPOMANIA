@@ -3,7 +3,7 @@
                     <!--NOM UTILISATEUR-->
         <article class="post" v-for="post in posts" :key="post.id">
             <div class="username">
-               <span class="firstname"></span>{{ post.user.firstname + ' ' }}<span class="name">{{ post.user.name.toUpperCase() }}</span>
+               <span class="user">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span>
                <button id="btn" type="button" class="delete-btn"> X </button>
             </div>    
                     <!--TITLE + IMG-->
@@ -70,6 +70,7 @@ export default {
                console.log(err +'Impossible de récupérer les posts')
            })
        },
+
     },
 
 
@@ -108,6 +109,8 @@ export default {
 
 
 .username {
+    display: flex;
+    align-items: center;
     font-size: 17px;
     color: #FD2D01;
     font-weight: bold;
@@ -115,6 +118,19 @@ export default {
     text-align: left;
     
 }
+.user {
+    display: block;
+}
+.delete-btn {
+    padding: 5px !important;
+    display: block !important;
+    position: relative;
+    right: 5px;
+    margin-right: inherit !important;
+
+    
+}
+
 
 h1 {
     font-size: 20px;
