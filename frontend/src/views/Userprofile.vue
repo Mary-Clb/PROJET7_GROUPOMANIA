@@ -1,7 +1,8 @@
 <template>
     <Header />
     <router-link to="/" id="link" class="link-home">Accueil</router-link>
-    <div class="page-container">   
+    <div class="page-container"> 
+        <UserInfos />  
         <UserPosts />
     </div> 
 </template>
@@ -9,12 +10,14 @@
 <script>
 import Header from '@/components/Header.vue'
 import UserPosts from '@/components/UserPosts.vue'
+import UserInfos from '@/components/UserInfos.vue'
 
 export default {
     name: 'Userprofile',
     components: {
         Header,
-        UserPosts
+        UserPosts,
+        UserInfos,
     }
 }
 </script>
@@ -22,7 +25,7 @@ export default {
 <style scoped>
 
 .page-container {
-    margin: 20px auto;
+    margin: 40px auto;
     width: 100%;
     display: flex;
     flex-direction: column;

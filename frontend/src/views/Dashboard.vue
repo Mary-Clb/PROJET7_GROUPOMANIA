@@ -2,6 +2,7 @@
     <Header />
     <Navbar />
     <div id="page-container">
+        <NewPost />
         <Post />
     </div>
 </template>
@@ -10,12 +11,14 @@
 import Header from '@/components/Header.vue'
 import Post from '@/components/Post.vue'
 import Navbar from '@/components/Navbar.vue'
+import NewPost from '@/components/NewPost.vue'
 
 export default {
     name: 'Dashboard',
     components: {
         Header,
         Navbar,
+        NewPost,
         Post
         
     }

@@ -1,15 +1,10 @@
 const models = require('../models');
 const fs = require('fs');
-const { request } = require('http');
 
 //ROUTES FOR POSTS//
 
 //CREATE POST
 exports.createPost = (req, res, next) => {
-
-    const token = req.headers.authorization.split(' ')[1]; //On extrait le token du header de la requête
-    const decodedToken = jwt.verify(token, process.env.AUTH_SECRET); //On utilise la méthode Verify() de JWT pour vérfier que le token est valide
-    const userId = decodedToken.userId;
 
         if (!req.body.title || !req.body.content) {
             return res.status(400).json({ message:'Veuillez remplir tous les champs'})
@@ -21,10 +16,9 @@ exports.createPost = (req, res, next) => {
             imagePost = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
         }
         const newPost = models.post.create({
-            userId: userId, 
+            userId: req.body.userId, 
             title: req.body.title,
-            content: imagePost,
-            likes: 0
+            content: imagePost
         })
             .then(newPost => {
                 return res.status(201).json({
@@ -46,7 +40,8 @@ exports.getAllPosts = (req, res, next) => {
             model: models.user,
             required: true,
             attributes: ['firstname', 'name']
-        }
+        },
+        order: [['createdAt', 'DESC']],
     })
         .then((posts) => {
             res.status(200).json(posts);

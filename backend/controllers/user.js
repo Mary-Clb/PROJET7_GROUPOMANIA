@@ -17,7 +17,7 @@ schema
 .has().not().spaces()                           // Ne pas avoir d'espaces
 //.is().not().oneOf(['Passw0rd', 'Password123']);
 
-
+//AUTHENTIFICATION
 exports.signup = (req, res, next) => {
     if (!req.body.firstname || !req.body.name || !req.body.email || !req.body.password) {
         return res.status(400).json({ message:'Veuillez remplir tous les champs'});
@@ -117,3 +117,15 @@ exports.deleteMyAccount = (req, res, next) => {
                     return res.status(401).json({ message: 'Impossible de supprimer l\'utilisateur'})
                 });
             };
+
+//RECUPERER INFOS DE 1 USER
+
+exports.getOneUser = (req, res, next) => {
+    models.user.findOne ({
+        where: { id: req.params.id}
+    })
+    .then((user) => {
+        return res.status(200).json((user))
+    })
+    .catch((error) => { return res.status(400).json({'error': 'Requête impossible'})})
+}

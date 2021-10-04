@@ -7,8 +7,8 @@ const postCtrl = require('../controllers/post');
 
 
 //MESSAGES
-router.post('/', auth, multer, postCtrl.createPost);
-router.get('/', auth, postCtrl.getAllPosts);
+router.post('/', multer, postCtrl.createPost);
+router.get('/', auth, multer, postCtrl.getAllPosts);
 router.get('/all/:id', auth, postCtrl.getUserPosts);
 router.get('/:id', auth, postCtrl.getOnePost);
 router.delete('/:id', auth, postCtrl.deletePost);

@@ -25,16 +25,15 @@
                                 <p class="created-at"> Créé le : {{ post.createdAt.slice(0,10).split('-').reverse().join('-') + ' à ' + post.createdAt.slice(11,16) }}</p>
                                 <p class="updated-at"> Modifié le : {{ post.updatedAt.slice(0,10).split('-').reverse().join('-') + ' à ' + post.updatedAt.slice(11,16) }}</p>
                             </div>
-                        </div>
+                        </div>    
         </article>
-      
-
+         <div v-show="empty" key="empty"  class="info-message">{{ msgForEmpty }}</div>
     </div>
+   
 </template>
 
 <script>
 import axios from 'axios'
-//import router from '../router'
 
 
 export default {
@@ -42,12 +41,15 @@ export default {
 
     data() {
         return {
-            posts: []
+            posts: [],
+            empty: false,
+            msgForEmpty: ''
         }
     },
 
     mounted() {
         this.getUserPosts();
+        this.noMessages();
     },
 
     methods: {
@@ -62,13 +64,20 @@ export default {
             })
             .then((res) => {
                 console.log(res);
-                this.posts = res.data
+                this.posts = res.data;
             })
-            
             .catch((err) => {
                 console.log(err + ' Impossible de récuperer les posts de l\'utilisateur')
             })
         },
+
+        noMessages () {
+            if (this.posts == 0) {
+                this.empty=true;
+                this.msgForEmpty='Vous n\'avez publié aucun message pour le moment';
+            }
+        }
+
 
     }
 }
@@ -103,6 +112,11 @@ export default {
     font-weight: bold;
     padding: 10px;
     text-align: left;
+}
+.info-message {
+    color: #FD2D01;
+    font-weight: bold;
+    font-style: italic;
 }
 
 h1 {

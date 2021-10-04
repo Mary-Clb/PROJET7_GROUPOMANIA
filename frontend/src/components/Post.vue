@@ -3,13 +3,14 @@
                     <!--NOM UTILISATEUR-->
         <article class="post" v-for="post in posts" :key="post.id">
             <div class="username">
-               <img src="" alt=""> <span class="firstname"></span>{{ post.user.firstname + ' ' }}<span class="name">{{ post.user.name.toUpperCase() }}</span>
+               <span class="firstname"></span>{{ post.user.firstname + ' ' }}<span class="name">{{ post.user.name.toUpperCase() }}</span>
+               <button id="btn" type="button" class="delete-btn"> X </button>
             </div>    
                     <!--TITLE + IMG-->
                     <div class="post-content">
                         <h1 class="title"> {{ post.title }}</h1>
                         <div class="content">
-                           <img :src="post.content" alt="image postée par l\'utilisateur">
+                           <img :src="post.content" class="img-post" alt="image postée par l'utilisateur">
                         </div>
                     </div>
                     <!--FOOTER-->
@@ -29,14 +30,13 @@
                         </div>
         </article>
 
-
     </div>
     
 </template>
 
 <script>
 import axios from 'axios';
-//import routeur from '../router';
+
 
 export default {
    name: 'Post',
@@ -92,10 +92,17 @@ export default {
         }
     }
 
+.content {
+    width: 100%;
+}
 .post {
     background-color: white;
     margin: 0px 0px 10px 0px;
     border-radius: 5px;
+}
+.img-post {
+    width: 95%;
+    object-fit: contain;
 }
 
 
@@ -106,6 +113,7 @@ export default {
     font-weight: bold;
     padding: 10px;
     text-align: left;
+    
 }
 
 h1 {
