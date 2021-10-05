@@ -1,6 +1,6 @@
 <template>
     <div class="nav-container">
-    <router-link id="link" to="/userprofile">Mon profil</router-link>
+    <router-link id="link" :to="{ name: 'Profile', params: { userId: this.userId } }">Mon profil</router-link>
     <button id="btn" type="submit" @click="deconnect()">Déconnexion</button>
     </div>
 </template>
@@ -11,6 +11,11 @@ import router from '../router'
 
 export default {
     name: 'Navbar',
+    data() {
+        return {
+            userId: localStorage.getItem('userId')
+        }
+    },
     methods: {
         deconnect () {
             localStorage.clear()

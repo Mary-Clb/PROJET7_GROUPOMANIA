@@ -1,24 +1,27 @@
 <template>
     <Header />
     <router-link to="/" id="link" class="link-home">Accueil</router-link>
-    <div class="page-container">
-    <UserInfos />
-    <UserPosts />
-    </div>
+    <div class="page-container"> 
+        <UserInfos />  
+        <UserPosts />
+    </div> 
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
 import UserPosts from '@/components/UserPosts.vue'
 import UserInfos from '@/components/UserInfos.vue'
+//import router from '../router'
 
 export default {
-    name: 'UserProfile',
+    name: 'Userprofile',
     components: {
         Header,
         UserPosts,
         UserInfos,
-    } 
+    },
+
+
 }
 </script>
 
@@ -35,5 +38,6 @@ export default {
     box-shadow: 3px 3px #be9b9b ;
 
 }
+
 
 </style>

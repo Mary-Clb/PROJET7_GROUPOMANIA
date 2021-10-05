@@ -28,7 +28,8 @@ export default {
 
     methods: {
         getOneUser() {
-            const userId = localStorage.getItem('userId');
+            //const userId = localStorage.getItem('userId');
+            const userId = this.$route.params.userId;
 
             axios.get("http://localhost:3000/api/auth/user/" + userId, {
                 headers: {
@@ -38,7 +39,8 @@ export default {
             })
             .then((res) => {
                 console.log(res);
-                this.user = res.data
+                this.user = res.data;
+                console.log(this.user)
             })
             .catch((err) => {
                 console.log(err + 'Impossible de récupérer les données utilisateurs')

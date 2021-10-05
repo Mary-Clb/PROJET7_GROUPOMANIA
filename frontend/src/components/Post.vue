@@ -3,10 +3,11 @@
                     <!--NOM UTILISATEUR-->
         <article class="post" v-for="post in posts" :key="post.id">
             <div class="username">
-               <span class="user">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span>
-               <button id="btn" type="button" class="delete-btn"> X </button>
+               <router-link  :to="{ name: 'UserProfile', params: { userId: post.user.id } }"><span class="user">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span></router-link>
+               <!--<button id="btn" type="button" class="delete-btn"> X </button> -->
             </div>    
                     <!--TITLE + IMG-->
+                    <router-link :to="{ name: 'FocusPost', params: { postId: post.id } }">
                     <div class="post-content">
                         <h1 class="title"> {{ post.title }}</h1>
                         <div class="content">
@@ -28,6 +29,7 @@
                                 <p class="updated-at"> Modifié le : {{ post.updatedAt.slice(0,10).split('-').reverse().join('-') + ' à ' + post.updatedAt.slice(11,16) }}</p>
                             </div>
                         </div>
+                        </router-link>
         </article>
 
     </div>
@@ -118,8 +120,12 @@ export default {
     text-align: left;
     
 }
+a {
+    text-decoration: none;
+}
 .user {
     display: block;
+    color: #FD2D01;
 }
 .delete-btn {
     padding: 5px !important;
@@ -181,6 +187,7 @@ h1 {
         margin: 2px 0px 2px 0px;
     }
 }
+
 </style>
 
 

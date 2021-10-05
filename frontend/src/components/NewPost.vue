@@ -48,17 +48,18 @@ export default {
     methods: {
         createPost() {
             const userId = localStorage.getItem('userId');
+
             const postData = {
-                userId : userId,
-                title : this.input.postTitle,
-                content : this.input.postContent,
+                userId: userId,
+                title: this.input.postTitle,
+                content: this.input.postContent,
             };
             axios.post("http://localhost:3000/api/post/", postData, {
                 headers: {
-                    'Content-Type' : 'application/json',
                     'Authorization' : 'Bearer ' + localStorage.getItem('token')
-                }
-            })
+                },
+
+             })
             .then(() => {
                 console.log('Votre article a bien été publié');
                 window.location.reload();

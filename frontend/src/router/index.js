@@ -2,7 +2,9 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Signup from '../views/Signup.vue'
 import Dashboard from '../views/Dashboard.vue'
-import Userprofile from '../views/Userprofile'
+import Profile from '../views/Profile.vue'
+import UserProfile from '../views/UserProfile.vue'
+import FocusPost from '../views/FocusPost.vue'
 
 
 const routes = [
@@ -30,9 +32,19 @@ const routes = [
     component: Dashboard,
   },
   {
-    path: '/userprofile',
-    name: 'Userprofile',
-    component: Userprofile,
+    path: '/myprofile/:userId',
+    name: 'Profile',
+    component: Profile,
+  },
+  {
+    path: '/profile/:userId',
+    name: 'UserProfile',
+    component: UserProfile,
+  },
+  {
+    path: '/focuspost/:postId',
+    name: 'FocusPost',
+    component: FocusPost,
   }
 ]
 

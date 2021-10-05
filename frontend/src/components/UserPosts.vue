@@ -8,7 +8,7 @@
                     <div class="post-content">
                         <h1 class="title"> {{ post.title }}</h1>
                         <div class="content">
-                           <img :src="post.content" alt="image postée par l\'utilisateur">
+                           <img :src="post.content" class="img-post" alt="image postée par l\'utilisateur">
                         </div>
                     </div>
                     <!--FOOTER-->
@@ -50,7 +50,8 @@ export default {
 
     methods: {
         getUserPosts () {
-            const userId = localStorage.getItem('userId');
+            //const userId = localStorage.getItem('userId');
+            const userId = this.$route.params.userId;
 
             axios.get("http://localhost:3000/api/post/all/" + userId, {
                 headers: {
@@ -91,6 +92,13 @@ export default {
     background-color: white;
     margin: 0px 0px 10px 0px;
     border-radius: 5px;
+}
+.content {
+    width: 100%;
+}
+.img-post {
+    width: 95%;
+    object-fit: contain;
 }
 
 

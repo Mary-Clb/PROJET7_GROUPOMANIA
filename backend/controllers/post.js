@@ -57,9 +57,14 @@ exports.getOnePost = (req, res, next) => {
 
         models.post.findOne({
             where: { id: req.params.id},
-            
+            include: {
+                model: models.user,
+                required: true,
+                attributes: ['firstname', 'name']
+            }
         })
         .then((post) => {
+            console.log('données envoyées')
             res.status(200).json(post)
         })
         .catch((error) => {
