@@ -36,17 +36,23 @@ exports.createPost = (req, res, next) => {
 //READ ALL POST
 exports.getAllPosts = (req, res, next) => {
     models.post.findAll({
-        include: {
+        include: [{
             model: models.user,
             required: true,
             attributes: ['firstname', 'name', 'id']
         },
+        {
+            model: models.comment,
+            required: false,
+        }],
         order: [['createdAt', 'DESC']],
     })
         .then((posts) => {
+            console.log(posts);
             res.status(200).json(posts);
         })
         .catch((error) => {
+            console.log(error);
             res.status(400).json({'error':'Impossible d\'afficher le post'})
         })
 
@@ -181,7 +187,9 @@ exports.getAllComments = (req, res, next) => {
             attributes: ['firstname', 'name']
         },
     })
-    .then(comment => {res.status(200).json(comment) })
+    .then((comments) => {
+        res.status(200).json(comments)
+    })
     .catch(err => res.status(400).json({ 'err': 'impossible d\'afficher les commentaires'}))
 
 

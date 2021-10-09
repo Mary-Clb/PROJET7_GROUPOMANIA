@@ -1,7 +1,10 @@
 <template>
     <Header />
     <Navbar />
+
+
     <div id="page-container">
+       
         <NewPost />
         <Post />
     </div>
@@ -19,7 +22,7 @@ export default {
         Header,
         Navbar,
         NewPost,
-        Post
+        Post,
         
     }
 

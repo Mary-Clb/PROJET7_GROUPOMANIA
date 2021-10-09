@@ -2,7 +2,8 @@
     <div class="container-post">  
         <article class="post" v-for="post in posts" :key="post.id">
             <div class="username">
-               <img src="" alt=""> <span class="firstname"></span>{{ post.user.firstname + ' ' }}<span class="name">{{ post.user.name.toUpperCase() }}</span>
+              <span class="user">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span>
+               <button id="btn" type="button" class="delete-btn" v-if="post.userId == user_id" > X </button>
             </div>    
                     <!--TITLE + IMG-->
                     <div class="post-content">
@@ -40,6 +41,7 @@ export default {
 
     data() {
         return {
+            user_id: localStorage.getItem('userId'),
             posts: [],
         }
     },
@@ -104,11 +106,26 @@ export default {
 
 
 .username {
+    display: flex;
+    align-items: center;
     font-size: 17px;
     color: #FD2D01;
     font-weight: bold;
     padding: 10px;
     text-align: left;
+}
+.user {
+    display: block;
+    color: #FD2D01;
+}
+.delete-btn {
+    padding: 5px !important;
+    display: block !important;
+    position: relative;
+    right: 5px;
+    margin-right: inherit !important;
+
+    
 }
 .info-message {
     color: #FD2D01;

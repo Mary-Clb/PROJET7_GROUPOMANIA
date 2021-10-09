@@ -1,8 +1,10 @@
 <template>
     <div class="container-post">
+        <article class="post" >
         <div class="username">
-          
+         <span class="user"></span>
         </div>
+        </article>
     </div>
 </template>
 
@@ -18,7 +20,7 @@ export default {
     },
 
     mounted() {
-        this.getOnePost();
+        this.getOnePost()
     },
 
     methods: {
@@ -32,9 +34,12 @@ export default {
                 }
             })
             .then((res) => {
-                this.post = res.data;
+                this.post = res.data
                 console.log('post récupéré')
                 console.log(this.post)
+            })
+            .catch((err) => {
+                console.log(err + 'Impossible de récupérer les données utilisateurs')
             })
 
         },
