@@ -44,6 +44,12 @@ exports.getAllPosts = (req, res, next) => {
         {
             model: models.comment,
             required: false,
+            include: {
+                model: models.user,
+               // as: 'commentUser',
+                required: true,
+                attributes: ['firstname', 'name']
+            },
         }],
         order: [['createdAt', 'DESC']],
     })

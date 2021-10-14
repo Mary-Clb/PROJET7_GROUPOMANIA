@@ -9,7 +9,7 @@
                     <!--TITLE + IMG-->
                     <router-link :to="{ name: 'FocusPost', params: { postId: post.id } }">
                     <div class="post-content">
-                        <h1 class="title"> {{ post.title }}</h1>
+                        <h1 class="title"> {{ post.title }} </h1>
                         <div class="content">
                            <img :src="post.content" class="img-post" alt="image postée par l'utilisateur">
                         </div>
@@ -22,15 +22,15 @@
                                 <span class="nb-of-likes">0</span>
                             </div>
                             <div class="post-comments">   
-                                <button class="comments-btn" type="button" @click="getAllComments(post.id)" ><img src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTEyIDUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGQ9Im00MzYuMzEgMTA3LjQyNWMtNDguMjQtMzcuNDQtMTEyLjI4LTU4LjA2LTE4MC4zMS01OC4wNi02LjIgMC0xMi4zNy4xNy0xOC41LjUxLTYxLjA4IDMuMzktMTE3Ljk3IDIzLjUyLTE2MS44MSA1Ny41NS00OC44MSAzNy44OC03NS42OSA4OC40Mi03NS42OSAxNDIuMzEgMCA0OC42MSAyMi4yOSA5NS4xNiA2Mi44OSAxMzEuNjItMTEuOTUgMjcuODEtMjcuMjUgNTAuNzktNDUuNTIgNjguMzYtMi4xOCAyLjEtMi44OSA1LjMtMS44IDguMTIgMS4xIDIuODIgMy43OCA0LjcxIDYuOCA0Ljc5LjIxIDAgLjgxLjAxIDEuNzguMDEgMTAuNTkgMCA2NC44My0xLjUxIDEyNC44Ny0zMC43OSAyOC4wNCAxMC4xMSA1Ny43MSAxNi4wNSA4OC40NyAxNy43NSA2LjEzLjM0IDEyLjMuNTEgMTguNTEuNTEgNjguMDMgMCAxMzIuMDctMjAuNjMgMTgwLjMxLTU4LjA3IDQ4LjgxLTM3Ljg4IDc1LjY5LTg4LjQyIDc1LjY5LTE0Mi4zIDAtNTMuODktMjYuODgtMTA0LjQzLTc1LjY5LTE0Mi4zMXoiIGZpbGw9IiNmZjNlN2EiLz48Zz48Zz48cGF0aCBkPSJtMzk4LjMyIDI1NS45OTljMCAyMC42OC0xNi43OTkgMzcuNS0zNy40NTMgMzcuNS00LjM3NSAwLTguNTc5LS43NS0xMi40ODQtMi4xNC0xNC41MzItNS4xNi0yNC45NjktMTkuMDYtMjQuOTY5LTM1LjM2czEwLjQzNy0zMC4yIDI0Ljk2OS0zNS4zNmMzLjkwNS0xLjM5IDguMTEtMi4xNCAxMi40ODQtMi4xNCAyMC42NTQgMCAzNy40NTMgMTYuODIgMzcuNDUzIDM3LjV6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTM5OC4zMiAyNTUuOTk5YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PGc+PHBhdGggZD0ibTE4OC41ODYgMjU1Ljk5NmMwIDIwLjY4LTE2Ljc5OSAzNy41LTM3LjQ1MyAzNy41LTQuMzc1IDAtOC41NzktLjc1LTEyLjQ4NC0yLjE0LTE0LjUzMi01LjE2LTI0Ljk2OS0xOS4wNi0yNC45NjktMzUuMzZzMTAuNDM3LTMwLjIgMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMTg4LjU4NiAyNTUuOTk2YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PGc+PHBhdGggZD0ibTI5My40NTUgMjU1Ljk5NmMwIDIwLjY4LTE2Ljc5OSAzNy41LTM3LjQ1MyAzNy41LTQuMzc1IDAtOC41NzktLjc1LTEyLjQ4NC0yLjE0LTE0LjUzMi01LjE2LTI0Ljk2OS0xOS4wNi0yNC45NjktMzUuMzZzMTAuNDM3LTMwLjIgMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMjkzLjQ1NSAyNTUuOTk2YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PC9nPjxwYXRoIGQ9Im01MTIgMjQ5LjczNWMwIDUzLjg4LTI2Ljg4IDEwNC40Mi03NS42OSAxNDIuMy00OC4yNCAzNy40NC0xMTIuMjggNTguMDctMTgwLjMxIDU4LjA3LTYuMjEgMC0xMi4zOC0uMTctMTguNTEtLjUxIDYxLjA4LTMuMzkgMTE3Ljk4LTIzLjUzIDE2MS44Mi01Ny41NiA0OC44MS0zNy44OCA3NS42OS04OC40MiA3NS42OS0xNDIuMyAwLTUzLjg5LTI2Ljg4LTEwNC40My03NS42OS0xNDIuMzEtNDMuODQtMzQuMDMtMTAwLjczLTU0LjE2LTE2MS44MS01Ny41NSA2LjEzLS4zNCAxMi4zLS41MSAxOC41LS41MSA2OC4wMyAwIDEzMi4wNyAyMC42MiAxODAuMzEgNTguMDYgNDguODEgMzcuODggNzUuNjkgODguNDIgNzUuNjkgMTQyLjMxeiIgZmlsbD0iI2IyMDA2ZSIvPjwvZz48L3N2Zz4=" /></button>
-                                <span class="nb-of-comments">0</span>
+                                <button class="comments-btn" type="button" @click="showComments(post.id)" ><img src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTEyIDUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGQ9Im00MzYuMzEgMTA3LjQyNWMtNDguMjQtMzcuNDQtMTEyLjI4LTU4LjA2LTE4MC4zMS01OC4wNi02LjIgMC0xMi4zNy4xNy0xOC41LjUxLTYxLjA4IDMuMzktMTE3Ljk3IDIzLjUyLTE2MS44MSA1Ny41NS00OC44MSAzNy44OC03NS42OSA4OC40Mi03NS42OSAxNDIuMzEgMCA0OC42MSAyMi4yOSA5NS4xNiA2Mi44OSAxMzEuNjItMTEuOTUgMjcuODEtMjcuMjUgNTAuNzktNDUuNTIgNjguMzYtMi4xOCAyLjEtMi44OSA1LjMtMS44IDguMTIgMS4xIDIuODIgMy43OCA0LjcxIDYuOCA0Ljc5LjIxIDAgLjgxLjAxIDEuNzguMDEgMTAuNTkgMCA2NC44My0xLjUxIDEyNC44Ny0zMC43OSAyOC4wNCAxMC4xMSA1Ny43MSAxNi4wNSA4OC40NyAxNy43NSA2LjEzLjM0IDEyLjMuNTEgMTguNTEuNTEgNjguMDMgMCAxMzIuMDctMjAuNjMgMTgwLjMxLTU4LjA3IDQ4LjgxLTM3Ljg4IDc1LjY5LTg4LjQyIDc1LjY5LTE0Mi4zIDAtNTMuODktMjYuODgtMTA0LjQzLTc1LjY5LTE0Mi4zMXoiIGZpbGw9IiNmZjNlN2EiLz48Zz48Zz48cGF0aCBkPSJtMzk4LjMyIDI1NS45OTljMCAyMC42OC0xNi43OTkgMzcuNS0zNy40NTMgMzcuNS00LjM3NSAwLTguNTc5LS43NS0xMi40ODQtMi4xNC0xNC41MzItNS4xNi0yNC45NjktMTkuMDYtMjQuOTY5LTM1LjM2czEwLjQzNy0zMC4yIDI0Ljk2OS0zNS4zNmMzLjkwNS0xLjM5IDguMTEtMi4xNCAxMi40ODQtMi4xNCAyMC42NTQgMCAzNy40NTMgMTYuODIgMzcuNDUzIDM3LjV6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTM5OC4zMiAyNTUuOTk5YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PGc+PHBhdGggZD0ibTE4OC41ODYgMjU1Ljk5NmMwIDIwLjY4LTE2Ljc5OSAzNy41LTM3LjQ1MyAzNy41LTQuMzc1IDAtOC41NzktLjc1LTEyLjQ4NC0yLjE0LTE0LjUzMi01LjE2LTI0Ljk2OS0xOS4wNi0yNC45NjktMzUuMzZzMTAuNDM3LTMwLjIgMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMTg4LjU4NiAyNTUuOTk2YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PGc+PHBhdGggZD0ibTI5My40NTUgMjU1Ljk5NmMwIDIwLjY4LTE2Ljc5OSAzNy41LTM3LjQ1MyAzNy41LTQuMzc1IDAtOC41NzktLjc1LTEyLjQ4NC0yLjE0LTE0LjUzMi01LjE2LTI0Ljk2OS0xOS4wNi0yNC45NjktMzUuMzZzMTAuNDM3LTMwLjIgMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMjkzLjQ1NSAyNTUuOTk2YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PC9nPjxwYXRoIGQ9Im01MTIgMjQ5LjczNWMwIDUzLjg4LTI2Ljg4IDEwNC40Mi03NS42OSAxNDIuMy00OC4yNCAzNy40NC0xMTIuMjggNTguMDctMTgwLjMxIDU4LjA3LTYuMjEgMC0xMi4zOC0uMTctMTguNTEtLjUxIDYxLjA4LTMuMzkgMTE3Ljk4LTIzLjUzIDE2MS44Mi01Ny41NiA0OC44MS0zNy44OCA3NS42OS04OC40MiA3NS42OS0xNDIuMyAwLTUzLjg5LTI2Ljg4LTEwNC40My03NS42OS0xNDIuMzEtNDMuODQtMzQuMDMtMTAwLjczLTU0LjE2LTE2MS44MS01Ny41NSA2LjEzLS4zNCAxMi4zLS41MSAxOC41LS41MSA2OC4wMyAwIDEzMi4wNyAyMC42MiAxODAuMzEgNTguMDYgNDguODEgMzcuODggNzUuNjkgODguNDIgNzUuNjkgMTQyLjMxeiIgZmlsbD0iI2IyMDA2ZSIvPjwvZz48L3N2Zz4=" /></button>
+                                <span class="nb-of-comments">{{ post.comments.length }}</span>
                             </div>
                             <div class="infos">
                                 <p class="created-at"> Créé le : {{ post.createdAt.slice(0,10).split('-').reverse().join('-') + ' à ' + post.createdAt.slice(11,16) }}</p>
                                 <p class="updated-at"> Modifié le : {{ post.updatedAt.slice(0,10).split('-').reverse().join('-') + ' à ' + post.updatedAt.slice(11,16) }}</p>
                             </div>
                       </div>  
-                            <div class="newcomment-container">
+                            <div class="newcomment-container" >
                                   <div class="newcomments">
                                     <form class="newcomments__form">
                                         <input type="text" class="newcomments__form--text" v-model="commentText" placeholder="Votre commentaire..." aria-label="Ecrivez ici votre commentaire" required>
@@ -39,21 +39,18 @@
                                   </div>
                             </div> 
 
-
-                            <div class="comment" v-for="comment in comments" :key="comment.id" id="d1">
+                        <div  v-bind:id="post.id" class="comment-none" >
+                            <div class="comment" v-for="comment in post.comments" :key="comment.id" >
                                 <div class="comment__username">
-                                    <div>{{ comment.user.firstname + ' ' }}{{ comment.user.name.toUpperCase() }}</div>
-                                    <div class="comment__date">Ajouté le : {{ comment.createdAt.slice(0,10).split('-').reverse().join('-') + ' à ' + post.createdAt.slice(11,16) }} </div>
+                                    <div>{{ comment.user.firstname + ' ' }}{{ comment.user.name.toUpperCase()}}</div>
+                                    <div class="comment__date">Ajouté le : {{comment.createdAt.slice(0,10).split('-').reverse().join('-') }}</div>
+                                    <button id="btn" type="button" class="comment__deletebtn" v-if="comment.userId == user_id" @click="deleteComment(comment.id)" > x </button>
                                 </div>
                                 <div class="comment__content">
                                     <div>{{ comment.content }}</div>
-                                    <button id="btn" type="button" class="delete-btn" v-if="comment.userId == user_id" @click="deleteComment(comment.id)" > x </button>
                                 </div>
                             </div>
-       
-       
-       
-       
+                        </div>
        </article>
     </div>
     
@@ -75,8 +72,7 @@ export default {
            isAdmin: false,
            commentText:'',
            posts: [],
-           comments: [],
-           countComments: null,
+           comments: []
        }
    },
 
@@ -145,25 +141,6 @@ export default {
             })
         },
 
-        getAllComments(id) {
-            const postId = id;
-            console.log(id);
-
-            axios.get("http://localhost:3000/api/post/" + postId + "/comments", {
-                    headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem("token")
-                }
-            })
-            .then((res) => {
-                console.log(res);
-                this.comments = res.data
-            })
-            .catch((err) => {
-                console.log(err + 'Impossible de récuperer les commentaires')
-            })
-        },
-
         deleteComment(id) {
             const commentId = id;
             console.log(commentId);
@@ -182,6 +159,23 @@ export default {
                 console.log(err + 'Impossible de supprimer le commentaire')
             })
         },
+
+        showComments(id) {
+            const postId = id;
+            console.log(postId);
+            const d1 = document.getElementById(postId);
+            console.log(d1);
+
+            
+                if(getComputedStyle(d1).display !="none") {
+                    d1.style.display = "none";
+                } else {
+                    d1.style.display = "block";
+                }
+           
+        },
+
+
     },
 
 
@@ -334,7 +328,7 @@ h1 {
 }
 
 //COMMENTAIRE
-.comment, {
+.comment {
     border-top: 2px groove #FFD7D7;
     border-radius : 5px;
     &__username {
@@ -345,6 +339,7 @@ h1 {
         padding: 5px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
     &__date {
         font-size: 10px;
@@ -356,7 +351,15 @@ h1 {
         padding: 10px 5px 10px 5px;
         font-size: 13px;
     }
+    &__deletebtn {
+        padding: 3px 4px 3px 4px !important;
+        margin: inherit !important;
+    }
 }
+.comment-none{
+    display: none;
+}
+
 
 
 
