@@ -7,18 +7,31 @@
     * MySQL
 
 * CLONER LE REPERTOIRE :
+
+```
 $ git clone https://github.com/Mary-Clb/Marie_Bressy_P7_06092021.git
+```
 
 * LANCER L'APPLICATION (FRONTEND):
 
 Se placer dans le dossier frontend à l'aide du terminal :
+
+```
 $ cd frontend
+```
 
 Puis, taper :
+
+```
 $ npm intall
+```
 
 Ensuite, lancer le serveur :
+
+```
 $ npm run serve
+```
+
 
 * LANCER LE SERVEUR BACKEND :
 Vous devez au préalable connecter votre BDD à l'application.
