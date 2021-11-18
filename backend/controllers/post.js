@@ -12,8 +12,10 @@ exports.createPost = (req, res, next) => {
             console.log(req.body)
         }
         let imagePost = req.body.content
+        console.log('récupération de l\'image ');
         if (req.file) {
-            imagePost = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+            imagePost = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+            console.log(imagePost);
         }
         const newPost = models.post.create({
             userId: req.body.userId, 
@@ -27,7 +29,7 @@ exports.createPost = (req, res, next) => {
                 })
             })
             .catch(err => {
-                console.log(newPost.title)
+                console.log('erreur impossible de récupere le post ' + newPost.title)
                 return res.status(500).json({ 'error':'Impossible de créer le post'})
             })
             
@@ -54,7 +56,7 @@ exports.getAllPosts = (req, res, next) => {
         order: [['createdAt', 'DESC']],
     })
         .then((posts) => {
-            console.log(posts);
+            //console.log(posts);
             res.status(200).json(posts);
         })
         .catch((error) => {

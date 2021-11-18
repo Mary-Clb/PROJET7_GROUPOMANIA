@@ -4,7 +4,6 @@ import Signup from '../views/Signup.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Profile from '../views/Profile.vue'
 import UserProfile from '../views/UserProfile.vue'
-import FocusPost from '../views/FocusPost.vue'
 
 
 const routes = [
@@ -41,11 +40,6 @@ const routes = [
     name: 'UserProfile',
     component: UserProfile,
   },
-  {
-    path: '/focuspost/:postId',
-    name: 'FocusPost',
-    component: FocusPost,
-  }
 ]
 
 const router = createRouter({

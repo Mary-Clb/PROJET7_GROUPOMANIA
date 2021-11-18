@@ -7,16 +7,16 @@
             <input type="text" id="post-title" placeholder="Titre..." aria-label="Ecrivez le titre ici" v-model="input.postTitle" required>
 
             <div class="post__glimpse" v-if="this.input.postContent">
-            <img :src="input.postContent" class="post__glimpse--img" alt="image de l'article" />
+            <img :src="apImage" class="post__glimpse--img" alt="image de l'article" />
             </div>
 
             <label for="post-content--file">Partagez son contenu :</label>
-            <input @change="selectFile()" type="file" ref="file" name="image" id="post-content" accept='.png, .jpeg, .gif, .png, .jpg'>
+            <input @change="selectFile()" type="file" ref="file" name="image" id="File" accept='.png, .jpeg, .gif, .png, .jpg'>
             
 
-            <label for="post-content--url">Ou copiez l'URL de votre image :</label>
+           <label for="post-content--url">Ou copiez l'URL de votre image :</label>
             <input type="text" id="post-content--url" placeholder="http://...." v-model="input.postContent" aria-label="Ecrivez l'URL de l'image">
-        </form>
+          </form>
         <button id="btn" type="submit" @click="createPost()">Publiez !</button>
 
     </div>
@@ -33,8 +33,10 @@ export default {
 
     data() {
         return {
+            apImage: '',
             input: {
                 postTitle : '',
+                file: null,
                 postContent: ''
             },
             user: []
@@ -48,11 +50,19 @@ export default {
     methods: {
         createPost() {
             const userId = localStorage.getItem('userId');
+            console.log(this.input.postContent);
+            console.log(this.input.file);
+            let content = '';
+            if (this.input.file) {
+                content = this.input.file;
+            } else {
+                content = this.input.postContent;
+            }
 
             const postData = {
                 userId: userId,
                 title: this.input.postTitle,
-                content: this.input.postContent,
+                content: content,
             };
             axios.post("http://localhost:3000/api/post/", postData, {
                 headers: {
@@ -62,7 +72,8 @@ export default {
              })
             .then(() => {
                 console.log('Votre article a bien été publié');
-                window.location.reload();
+                this.input.file = null;
+                //window.location.reload();
             })
             .catch((error) => {
                 alert(error + 'Vote article n\'a pas pu être publié, veuillez réessayer')
@@ -88,9 +99,9 @@ export default {
         },
 
         selectFile() {
-            this.file = this.$refs.file.files[0];
-            this.input.postContent = URL.createObjectURL(this.file)
-        },
+            this.input.file = this.$refs.file.files[0];
+            //this.apImage = URL.createObjectURL(this.file)
+        }, 
     }
 }
 </script>

@@ -4,17 +4,17 @@
         <article class="post" v-for="post in posts" :key="post.id">
             <div class="username">
                <router-link  :to="{ name: 'UserProfile', params: { userId: post.user.id } }"><span class="user">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span></router-link>
+               <button id="btn" type="button" class="modify-btn" v-if="post.userId == user_id"> <img src="../assets/wheel.svg" class="modify-btn-img" alt="modifier le commmentaire"></button>
                <button id="btn" type="button" class="delete-btn" v-if="post.userId == user_id" @click="deletePost(post.id)" > X </button>
+               
             </div>    
                     <!--TITLE + IMG-->
-                    <router-link :to="{ name: 'FocusPost', params: { postId: post.id } }">
                     <div class="post-content">
                         <h1 class="title"> {{ post.title }} </h1>
                         <div class="content">
                            <img :src="post.content" class="img-post" alt="image postée par l'utilisateur">
                         </div>
                     </div>
-                    </router-link>
                     <!--FOOTER-->
                         <div class="post-footer">
                             <div class="post-likes">
@@ -236,8 +236,17 @@ a {
     position: relative;
     right: 5px;
     margin-right: inherit !important;
-
-    
+}
+.modify-btn-img {
+    height: 15px;
+    width: 15px;
+}
+.modify-btn {
+    padding: 5px !important;
+    display: block !important;
+    position: relative;
+    right: 5px;
+    margin-right: inherit !important;
 }
 
 
@@ -273,6 +282,7 @@ h1 {
         color: #000000;
     }
 }
+
 
 /*.like-btn {
     background-color: white;
