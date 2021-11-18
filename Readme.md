@@ -34,19 +34,30 @@ $ npm run serve
 
 
 * LANCER LE SERVEUR BACKEND :
+
 Vous devez au préalable connecter votre BDD à l'application.
 Pour cela, copier le fichier ".env.example" situé dans le dossier backend, le renommer ".env" et compléter les variables de connexion avec vos identifiants.
 
 Ensuite, se placer dans le dossier backend de l'application :
+
+```
 $ cd backend
+```
 
 Installer les dépendances nécessaires :
+
+```
 $ npm install
+```
 
 Lancer le serveur :
+
+```
 $ node server
+```
 
 * NAVIGATEUR
+
 Ouvrir une nouvelle fenêtre à l'adresse  http://localhost:8080/
 
 Vous êtes sur la page d'accueil de l'application. Cliquer sur "S'inscrire" et créer un nouveau compte utilisateur.
