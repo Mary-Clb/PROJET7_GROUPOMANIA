@@ -23,7 +23,6 @@ export default {
 </script>
 
 <style scoped>
-
 .page-container {
     margin: 40px auto;
     width: 100%;
@@ -35,5 +34,4 @@ export default {
     box-shadow: 3px 3px #be9b9b ;
 
 }
-
 </style>
