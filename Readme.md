@@ -23,7 +23,7 @@ $ cd frontend
 Puis, taper :
 
 ```
-$ npm intall
+$ npm install
 ```
 
 Ensuite, lancer le serveur :
