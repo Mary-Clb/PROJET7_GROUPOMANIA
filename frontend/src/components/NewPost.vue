@@ -11,11 +11,11 @@
             </div>
 
             <label for="post-content--file">Partagez son contenu :</label>
-            <input @change="selectFile()" type="file" ref="file" name="image" id="File" accept='.png, .jpeg, .gif, .png, .jpg'>
+            <input @change="selectFile" type="file" ref="file" name="file" id="file" accept='.png, .jpeg, .gif, .png, .jpg'>
             
 
            <label for="post-content--url">Ou copiez l'URL de votre image :</label>
-            <input type="text" id="post-content--url" placeholder="http://...." v-model="input.postContent" aria-label="Ecrivez l'URL de l'image">
+            <input type="text" id="post-content--url" placeholder="http://...." v-model="input.postContent" aria-label="Collez l'URL de l'image">
           </form>
         <button id="btn" type="submit" @click="createPost()">Publiez !</button>
 
@@ -34,9 +34,10 @@ export default {
     data() {
         return {
             apImage: '',
+            file : '',
             input: {
                 postTitle : '',
-                file: null,
+                //file: null,
                 postContent: ''
             },
             user: []
@@ -49,31 +50,39 @@ export default {
 
     methods: {
         createPost() {
+            
             const userId = localStorage.getItem('userId');
             console.log(this.input.postContent);
-            console.log(this.input.file);
-            let content = '';
-            if (this.input.file) {
-                content = this.input.file;
-            } else {
-                content = this.input.postContent;
+            console.log(this.file);
+            /*let content = '';
+            if (this.file) {
+            content = this.file;
+             } else {
+            content = this.input.postContent;
             }
 
-            const postData = {
+           /* const postData = {
                 userId: userId,
                 title: this.input.postTitle,
                 content: content,
-            };
-            axios.post("http://localhost:3000/api/post/", postData, {
+           };*/
+
+            let formData = new FormData();
+            formData.append('userId', userId);
+            formData.append('title', this.input.postTitle);
+            formData.append('file', this.file);
+            formData.append('content', this.input.postContent);
+
+            axios.post("http://localhost:3000/api/post/", formData, {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('token')
-                },
+                }
 
              })
             .then(() => {
                 console.log('Votre article a bien été publié');
-                this.input.file = null;
-                //window.location.reload();
+                this.file = null;
+                window.location.reload();
             })
             .catch((error) => {
                 alert(error + 'Vote article n\'a pas pu être publié, veuillez réessayer')
@@ -98,9 +107,10 @@ export default {
             })
         },
 
-        selectFile() {
-            this.input.file = this.$refs.file.files[0];
-            //this.apImage = URL.createObjectURL(this.file)
+        selectFile(event) {
+             this.file = event.target.files[0];
+             //this.file = this.$refs.file.files[0];
+             this.input.postContent = URL.createObjectURL(this.file)
         }, 
     }
 }

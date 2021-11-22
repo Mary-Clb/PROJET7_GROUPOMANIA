@@ -5,7 +5,7 @@ const fs = require('fs');
 
 //CREATE POST
 exports.createPost = (req, res, next) => {
-
+        console.log(req.file);
         if (!req.body.title || !req.body.content) {
             return res.status(400).json({ message:'Veuillez remplir tous les champs'})
         } else {
@@ -13,10 +13,12 @@ exports.createPost = (req, res, next) => {
         }
         let imagePost = req.body.content
         console.log('récupération de l\'image ');
+        console.log(imagePost);
         if (req.file) {
-            imagePost = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
-            console.log(imagePost);
-        }
+            imagePost = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            //console.log(imagePost);
+        } 
+
         const newPost = models.post.create({
             userId: req.body.userId, 
             title: req.body.title,
@@ -29,7 +31,7 @@ exports.createPost = (req, res, next) => {
                 })
             })
             .catch(err => {
-                console.log('erreur impossible de récupere le post ' + newPost.title)
+                console.log('erreur impossible de récupere le post ' + err)
                 return res.status(500).json({ 'error':'Impossible de créer le post'})
             })
             
