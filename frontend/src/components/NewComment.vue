@@ -1,8 +1,8 @@
 <template>
-    <div class="comments">
-                <form class="comments__form">
-                    <input type="text" class="comments__form--text" v-model="commentText" placeholder="Votre commentaire..." aria-label="Ecrivez ici votre commentaire" required>
-                    <button id="btn" class="comments__form--btn" type="submit"><img src="../assets/send.svg" alt="Envoyer le commentaire"></button>
+    <div class="newcomments">
+                <form class="newcomments__form">
+                    <input type="text" class="newcomments__form--text" v-model="commentText" placeholder="Votre commentaire..." aria-label="Ecrivez ici votre commentaire" required>
+                    <button id="btn" class="newcomments__form--btn" type="submit"><img class="comments__form--btn-img" src="../assets/send.svg" alt="Envoyer le commentaire"></button>
                 </form>
     </div>
 </template>
@@ -36,11 +36,12 @@ export default {
         align-items: center;
     }
     &__form--btn {
-        position: relative;
-        right: 0px;
+        /*position: relative;*/
+        /*right: 0px;*/
         width: 37px;
         height: 37px;
         margin: 0px !important;
+        padding: 2px 2px 2px 2px !important;
         display: inline;
     }
     &__form--text {

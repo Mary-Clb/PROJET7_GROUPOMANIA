@@ -11,10 +11,10 @@
             </div>
 
             <label for="post-content--file">Partagez son contenu :</label>
-            <input @change="selectFile" type="file" ref="file" name="file" id="file" accept='.png, .jpeg, .gif, .png, .jpg'>
+            <input @change="selectFile" type="file" ref="file" name="file" id="post-content--file" accept='.png, .jpeg, .gif, .png, .jpg'>
             
 
-           <label for="post-content--url">Ou copiez l'URL de votre image :</label>
+           <label for="post-content--url" id='post-content--label'>Ou copiez l'URL de votre image :</label>
             <input type="text" id="post-content--url" placeholder="http://...." v-model="input.postContent" aria-label="Collez l'URL de l'image">
           </form>
         <button id="btn" type="submit" @click="createPost()">Publiez !</button>
@@ -109,8 +109,14 @@ export default {
 
         selectFile(event) {
              this.file = event.target.files[0];
-             //this.file = this.$refs.file.files[0];
-             this.input.postContent = URL.createObjectURL(this.file)
+             this.input.postContent = URL.createObjectURL(this.file);
+             this.apImage = URL.createObjectURL(this.file);
+
+             const hidelabel = document.getElementById('post-content--label');
+             hidelabel.style.display = "none";
+
+             const hidebar = document.getElementById('post-content--url');
+             hidebar.style.display = "none";
         }, 
     }
 }

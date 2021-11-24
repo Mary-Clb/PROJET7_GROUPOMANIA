@@ -1,31 +1,38 @@
 <template>
     <div class="container-post">
-                    <!--NOM UTILISATEUR-->
+
+                    <!--MODALE POUR MODIFIER LE POST-->
+        <ModaleModify v-bind:revele="revele" v-bind:toggleModale="toggleModale" />
+
+                    <!--NOM UTILISATEUR + BOUTONS -->
         <article class="post" v-for="post in posts" :key="post.id">
-            <div class="username">
-               <router-link  :to="{ name: 'UserProfile', params: { userId: post.user.id } }"><span class="user">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span></router-link>
-               <button id="btn" type="button" class="modify-btn" v-if="post.userId == user_id"> <img src="../assets/wheel.svg" class="modify-btn-img" alt="modifier le commmentaire"></button>
-               <button id="btn" type="button" class="delete-btn" v-if="post.userId == user_id" @click="deletePost(post.id)" > X </button>
-               
+            <div class="post__header">
+            <div class="post__header--username">
+               <router-link  :to="{ name: 'UserProfile', params: { userId: post.user.id } }"><span class="post__header--username-name">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span></router-link>
+            </div>
+            <div class="post__header--buttons">   
+               <button id="btn" type="button" class="post__header--buttons-modify" v-if="post.userId == user_id" @click="toggleModale(post.id)"> <img src="../assets/wheel.svg" class="post__header--buttons-modify-img" alt="modifier le commmentaire"></button>
+               <button id="btn" type="button" class="post__header--buttons-delete" v-if="post.userId == user_id" @click="deletePost(post.id)" > X </button>
+            </div>   
             </div>    
                     <!--TITLE + IMG-->
-                    <div class="post-content">
-                        <h1 class="title"> {{ post.title }} </h1>
-                        <div class="content">
-                           <img :src="post.content" class="img-post" alt="image postée par l'utilisateur">
+                    <div class="post__content">
+                        <h1 class="post__content--title"> {{ post.title }} </h1>
+                        <div class="post__content--content">
+                           <img :src="post.content" class="post__content--img" alt="image postée par l'utilisateur">
                         </div>
                     </div>
                     <!--FOOTER-->
-                        <div class="post-footer">
-                            <div class="post-likes">
-                                <button class="like-btn" type="button"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTExLjk5OSA1MTEuOTk5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTEuOTk5IDUxMS45OTk7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiNFQzU1Njk7IiBkPSJNNDEyLjQxLDBIOTkuNTg5QzQ3LjUzMSwwLDUuMzMyLDQyLjIwMSw1LjMzMiw5NC4yNTd2MjA1LjE3MmMwLDUyLjA1Nyw0Mi4yMDEsOTQuMjU3LDk0LjI1Nyw5NC4yNTcNCgloNDQuODk0YzIuMTM2LDAsMy44NjcsMS43MzEsMy44NjcsMy44Njd2MTAxLjIwN2MwLDExLjk2NiwxNC42MzcsMTcuNzY4LDIyLjgzNCw5LjA1bDEwNi4xODgtMTEyLjkwNg0KCWMwLjczMS0wLjc3OCwxLjc1MS0xLjIxOCwyLjgxOC0xLjIxOGgxMzIuMjJjNTIuMDU3LDAsOTQuMjU3LTQyLjIwMSw5NC4yNTctOTQuMjU3Vjk0LjI1N0M1MDYuNjY3LDQyLjIwMSw0NjQuNDY2LDAsNDEyLjQxLDB6Ii8+DQo8cGF0aCBzdHlsZT0iZmlsbDojRTYzOTUwOyIgZD0iTTE4OC4wMDUsMzU4LjUwOWMwLTIuMjQ5LTEuNjc2LTQuMDcyLTMuNzQ0LTQuMDcyaC00My40NjJjLTUwLjM5NiwwLTkxLjI1LTQ0LjQzOS05MS4yNS05OS4yNTcNCglWMzkuMTIzYzAtOS4yNzYsMS4xNzQtMTguMjUzLDMuMzYxLTI2Ljc3QzI0LjQ4OSwyOC41ODcsNS4zMzIsNTkuMTg0LDUuMzMyLDk0LjI1N3YyMDUuMTcyYzAsNTIuMDU2LDQyLjIwMSw5NC4yNTcsOTQuMjU3LDk0LjI1Nw0KCWg0NC44OTRjMi4xMzYsMCwzLjg2NywxLjczMiwzLjg2NywzLjg2N3YxMDEuMjA3YzAsMTEuOTY2LDE0LjYzNywxNy43NjgsMjIuODM0LDkuMDVsMTYuODItMTcuODg1VjM1OC41MDlIMTg4LjAwNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNFQzU1Njk7IiBkPSJNMzYxLjkwOCwxMjIuMzI1TDM2MS45MDgsMTIyLjMyNWMtMjMuOTMxLTIzLjkzMS02Mi43MzEtMjMuOTMxLTg2LjY2MywwbC0xMy41MTgsMTMuNTE4DQoJYy0zLjIyMywzLjIyMy04LjQ1LDMuMjIzLTExLjY3MywwbC0xMy4zMDItMTMuMzAyYy0yMy45MzEtMjMuOTMxLTYyLjczMS0yMy45MzEtODYuNjYzLDBsMCwwDQoJYy0yMy45MzEsMjMuOTMxLTIzLjkzMSw2Mi43MzEsMCw4Ni42NjNsOTkuOTczLDk5Ljk3M2MzLjIyMywzLjIyMyw4LjQ1LDMuMjIzLDExLjY3MywwbDEwMC4xNzItMTAwLjE4OQ0KCUMzODUuODM5LDE4NS4wNTYsMzg1LjgzOSwxNDYuMjU3LDM2MS45MDgsMTIyLjMyNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGRkY1RjU7IiBkPSJNMzYxLjkwOCwxMjIuMzI1TDM2MS45MDgsMTIyLjMyNWMtMjMuOTMxLTIzLjkzMS02Mi43MzEtMjMuOTMxLTg2LjY2MywwbC0xMy41MTgsMTMuNTE4DQoJYy0zLjIyMywzLjIyMy04LjQ1LDMuMjIzLTExLjY3MywwbC0xMy4zMDItMTMuMzAyYy0yMy45MzEtMjMuOTMxLTYyLjczMS0yMy45MzEtODYuNjYzLDBsMCwwDQoJYy0yMy45MzEsMjMuOTMxLTIzLjkzMSw2Mi43MzEsMCw4Ni42NjNsOTkuOTczLDk5Ljk3M2MzLjIyMywzLjIyMyw4LjQ1LDMuMjIzLDExLjY3MywwbDEwMC4xNzItMTAwLjE4OQ0KCUMzODUuODM5LDE4NS4wNTYsMzg1LjgzOSwxNDYuMjU3LDM2MS45MDgsMTIyLjMyNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNEQ0U2RUI7IiBkPSJNMTgyLjE0NSwyMDkuMjA0Yy0yMy45MzEtMjMuOTMxLTIzLjkzMS02Mi43MzEsMC04Ni42NjNsMCwwYzcuODUtNy44NSwxNy4zMDQtMTMuMTA4LDI3LjMwMy0xNS44MDcNCgljLTIwLjQ4Ni01LjUzMi00My4yNzgtMC4yNzQtNTkuMzU4LDE1LjgwN2wwLDBjLTIzLjkzMSwyMy45MzEtMjMuOTMxLDYyLjczMSwwLDg2LjY2M2w5OS45NzMsOTkuOTczDQoJYzMuMjIzLDMuMjIzLDguNDUsMy4yMjMsMTEuNjczLDBsMTAuMTktMTAuMTkyTDE4Mi4xNDUsMjA5LjIwNHoiLz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K" /></button>
-                                <span class="nb-of-likes">0</span>
+                        <div class="post__footer">
+                            <div class="post__footer--likes">
+                                <button class="post__footer--likes-btn" type="button"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTExLjk5OSA1MTEuOTk5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTEuOTk5IDUxMS45OTk7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiNFQzU1Njk7IiBkPSJNNDEyLjQxLDBIOTkuNTg5QzQ3LjUzMSwwLDUuMzMyLDQyLjIwMSw1LjMzMiw5NC4yNTd2MjA1LjE3MmMwLDUyLjA1Nyw0Mi4yMDEsOTQuMjU3LDk0LjI1Nyw5NC4yNTcNCgloNDQuODk0YzIuMTM2LDAsMy44NjcsMS43MzEsMy44NjcsMy44Njd2MTAxLjIwN2MwLDExLjk2NiwxNC42MzcsMTcuNzY4LDIyLjgzNCw5LjA1bDEwNi4xODgtMTEyLjkwNg0KCWMwLjczMS0wLjc3OCwxLjc1MS0xLjIxOCwyLjgxOC0xLjIxOGgxMzIuMjJjNTIuMDU3LDAsOTQuMjU3LTQyLjIwMSw5NC4yNTctOTQuMjU3Vjk0LjI1N0M1MDYuNjY3LDQyLjIwMSw0NjQuNDY2LDAsNDEyLjQxLDB6Ii8+DQo8cGF0aCBzdHlsZT0iZmlsbDojRTYzOTUwOyIgZD0iTTE4OC4wMDUsMzU4LjUwOWMwLTIuMjQ5LTEuNjc2LTQuMDcyLTMuNzQ0LTQuMDcyaC00My40NjJjLTUwLjM5NiwwLTkxLjI1LTQ0LjQzOS05MS4yNS05OS4yNTcNCglWMzkuMTIzYzAtOS4yNzYsMS4xNzQtMTguMjUzLDMuMzYxLTI2Ljc3QzI0LjQ4OSwyOC41ODcsNS4zMzIsNTkuMTg0LDUuMzMyLDk0LjI1N3YyMDUuMTcyYzAsNTIuMDU2LDQyLjIwMSw5NC4yNTcsOTQuMjU3LDk0LjI1Nw0KCWg0NC44OTRjMi4xMzYsMCwzLjg2NywxLjczMiwzLjg2NywzLjg2N3YxMDEuMjA3YzAsMTEuOTY2LDE0LjYzNywxNy43NjgsMjIuODM0LDkuMDVsMTYuODItMTcuODg1VjM1OC41MDlIMTg4LjAwNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNFQzU1Njk7IiBkPSJNMzYxLjkwOCwxMjIuMzI1TDM2MS45MDgsMTIyLjMyNWMtMjMuOTMxLTIzLjkzMS02Mi43MzEtMjMuOTMxLTg2LjY2MywwbC0xMy41MTgsMTMuNTE4DQoJYy0zLjIyMywzLjIyMy04LjQ1LDMuMjIzLTExLjY3MywwbC0xMy4zMDItMTMuMzAyYy0yMy45MzEtMjMuOTMxLTYyLjczMS0yMy45MzEtODYuNjYzLDBsMCwwDQoJYy0yMy45MzEsMjMuOTMxLTIzLjkzMSw2Mi43MzEsMCw4Ni42NjNsOTkuOTczLDk5Ljk3M2MzLjIyMywzLjIyMyw4LjQ1LDMuMjIzLDExLjY3MywwbDEwMC4xNzItMTAwLjE4OQ0KCUMzODUuODM5LDE4NS4wNTYsMzg1LjgzOSwxNDYuMjU3LDM2MS45MDgsMTIyLjMyNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGRkY1RjU7IiBkPSJNMzYxLjkwOCwxMjIuMzI1TDM2MS45MDgsMTIyLjMyNWMtMjMuOTMxLTIzLjkzMS02Mi43MzEtMjMuOTMxLTg2LjY2MywwbC0xMy41MTgsMTMuNTE4DQoJYy0zLjIyMywzLjIyMy04LjQ1LDMuMjIzLTExLjY3MywwbC0xMy4zMDItMTMuMzAyYy0yMy45MzEtMjMuOTMxLTYyLjczMS0yMy45MzEtODYuNjYzLDBsMCwwDQoJYy0yMy45MzEsMjMuOTMxLTIzLjkzMSw2Mi43MzEsMCw4Ni42NjNsOTkuOTczLDk5Ljk3M2MzLjIyMywzLjIyMyw4LjQ1LDMuMjIzLDExLjY3MywwbDEwMC4xNzItMTAwLjE4OQ0KCUMzODUuODM5LDE4NS4wNTYsMzg1LjgzOSwxNDYuMjU3LDM2MS45MDgsMTIyLjMyNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNEQ0U2RUI7IiBkPSJNMTgyLjE0NSwyMDkuMjA0Yy0yMy45MzEtMjMuOTMxLTIzLjkzMS02Mi43MzEsMC04Ni42NjNsMCwwYzcuODUtNy44NSwxNy4zMDQtMTMuMTA4LDI3LjMwMy0xNS44MDcNCgljLTIwLjQ4Ni01LjUzMi00My4yNzgtMC4yNzQtNTkuMzU4LDE1LjgwN2wwLDBjLTIzLjkzMSwyMy45MzEtMjMuOTMxLDYyLjczMSwwLDg2LjY2M2w5OS45NzMsOTkuOTczDQoJYzMuMjIzLDMuMjIzLDguNDUsMy4yMjMsMTEuNjczLDBsMTAuMTktMTAuMTkyTDE4Mi4xNDUsMjA5LjIwNHoiLz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K" /></button>
+                                <span class="post__footer-nb-of-likes">0</span>
                             </div>
-                            <div class="post-comments">   
-                                <button class="comments-btn" type="button" @click="showComments(post.id)" ><img src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTEyIDUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGQ9Im00MzYuMzEgMTA3LjQyNWMtNDguMjQtMzcuNDQtMTEyLjI4LTU4LjA2LTE4MC4zMS01OC4wNi02LjIgMC0xMi4zNy4xNy0xOC41LjUxLTYxLjA4IDMuMzktMTE3Ljk3IDIzLjUyLTE2MS44MSA1Ny41NS00OC44MSAzNy44OC03NS42OSA4OC40Mi03NS42OSAxNDIuMzEgMCA0OC42MSAyMi4yOSA5NS4xNiA2Mi44OSAxMzEuNjItMTEuOTUgMjcuODEtMjcuMjUgNTAuNzktNDUuNTIgNjguMzYtMi4xOCAyLjEtMi44OSA1LjMtMS44IDguMTIgMS4xIDIuODIgMy43OCA0LjcxIDYuOCA0Ljc5LjIxIDAgLjgxLjAxIDEuNzguMDEgMTAuNTkgMCA2NC44My0xLjUxIDEyNC44Ny0zMC43OSAyOC4wNCAxMC4xMSA1Ny43MSAxNi4wNSA4OC40NyAxNy43NSA2LjEzLjM0IDEyLjMuNTEgMTguNTEuNTEgNjguMDMgMCAxMzIuMDctMjAuNjMgMTgwLjMxLTU4LjA3IDQ4LjgxLTM3Ljg4IDc1LjY5LTg4LjQyIDc1LjY5LTE0Mi4zIDAtNTMuODktMjYuODgtMTA0LjQzLTc1LjY5LTE0Mi4zMXoiIGZpbGw9IiNmZjNlN2EiLz48Zz48Zz48cGF0aCBkPSJtMzk4LjMyIDI1NS45OTljMCAyMC42OC0xNi43OTkgMzcuNS0zNy40NTMgMzcuNS00LjM3NSAwLTguNTc5LS43NS0xMi40ODQtMi4xNC0xNC41MzItNS4xNi0yNC45NjktMTkuMDYtMjQuOTY5LTM1LjM2czEwLjQzNy0zMC4yIDI0Ljk2OS0zNS4zNmMzLjkwNS0xLjM5IDguMTEtMi4xNCAxMi40ODQtMi4xNCAyMC42NTQgMCAzNy40NTMgMTYuODIgMzcuNDUzIDM3LjV6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTM5OC4zMiAyNTUuOTk5YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PGc+PHBhdGggZD0ibTE4OC41ODYgMjU1Ljk5NmMwIDIwLjY4LTE2Ljc5OSAzNy41LTM3LjQ1MyAzNy41LTQuMzc1IDAtOC41NzktLjc1LTEyLjQ4NC0yLjE0LTE0LjUzMi01LjE2LTI0Ljk2OS0xOS4wNi0yNC45NjktMzUuMzZzMTAuNDM3LTMwLjIgMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMTg4LjU4NiAyNTUuOTk2YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PGc+PHBhdGggZD0ibTI5My40NTUgMjU1Ljk5NmMwIDIwLjY4LTE2Ljc5OSAzNy41LTM3LjQ1MyAzNy41LTQuMzc1IDAtOC41NzktLjc1LTEyLjQ4NC0yLjE0LTE0LjUzMi01LjE2LTI0Ljk2OS0xOS4wNi0yNC45NjktMzUuMzZzMTAuNDM3LTMwLjIgMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMjkzLjQ1NSAyNTUuOTk2YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PC9nPjxwYXRoIGQ9Im01MTIgMjQ5LjczNWMwIDUzLjg4LTI2Ljg4IDEwNC40Mi03NS42OSAxNDIuMy00OC4yNCAzNy40NC0xMTIuMjggNTguMDctMTgwLjMxIDU4LjA3LTYuMjEgMC0xMi4zOC0uMTctMTguNTEtLjUxIDYxLjA4LTMuMzkgMTE3Ljk4LTIzLjUzIDE2MS44Mi01Ny41NiA0OC44MS0zNy44OCA3NS42OS04OC40MiA3NS42OS0xNDIuMyAwLTUzLjg5LTI2Ljg4LTEwNC40My03NS42OS0xNDIuMzEtNDMuODQtMzQuMDMtMTAwLjczLTU0LjE2LTE2MS44MS01Ny41NSA2LjEzLS4zNCAxMi4zLS41MSAxOC41LS41MSA2OC4wMyAwIDEzMi4wNyAyMC42MiAxODAuMzEgNTguMDYgNDguODEgMzcuODggNzUuNjkgODguNDIgNzUuNjkgMTQyLjMxeiIgZmlsbD0iI2IyMDA2ZSIvPjwvZz48L3N2Zz4=" /></button>
-                                <span class="nb-of-comments">{{ post.comments.length }}</span>
+                            <div class="post__footer--comments">   
+                                <button class="post__footer--comments-btn" type="button" @click="showComments(post.id)" ><img class="post__footer--comments-btn-img" src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTEyIDUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGQ9Im00MzYuMzEgMTA3LjQyNWMtNDguMjQtMzcuNDQtMTEyLjI4LTU4LjA2LTE4MC4zMS01OC4wNi02LjIgMC0xMi4zNy4xNy0xOC41LjUxLTYxLjA4IDMuMzktMTE3Ljk3IDIzLjUyLTE2MS44MSA1Ny41NS00OC44MSAzNy44OC03NS42OSA4OC40Mi03NS42OSAxNDIuMzEgMCA0OC42MSAyMi4yOSA5NS4xNiA2Mi44OSAxMzEuNjItMTEuOTUgMjcuODEtMjcuMjUgNTAuNzktNDUuNTIgNjguMzYtMi4xOCAyLjEtMi44OSA1LjMtMS44IDguMTIgMS4xIDIuODIgMy43OCA0LjcxIDYuOCA0Ljc5LjIxIDAgLjgxLjAxIDEuNzguMDEgMTAuNTkgMCA2NC44My0xLjUxIDEyNC44Ny0zMC43OSAyOC4wNCAxMC4xMSA1Ny43MSAxNi4wNSA4OC40NyAxNy43NSA2LjEzLjM0IDEyLjMuNTEgMTguNTEuNTEgNjguMDMgMCAxMzIuMDctMjAuNjMgMTgwLjMxLTU4LjA3IDQ4LjgxLTM3Ljg4IDc1LjY5LTg4LjQyIDc1LjY5LTE0Mi4zIDAtNTMuODktMjYuODgtMTA0LjQzLTc1LjY5LTE0Mi4zMXoiIGZpbGw9IiNmZjNlN2EiLz48Zz48Zz48cGF0aCBkPSJtMzk4LjMyIDI1NS45OTljMCAyMC42OC0xNi43OTkgMzcuNS0zNy40NTMgMzcuNS00LjM3NSAwLTguNTc5LS43NS0xMi40ODQtMi4xNC0xNC41MzItNS4xNi0yNC45NjktMTkuMDYtMjQuOTY5LTM1LjM2czEwLjQzNy0zMC4yIDI0Ljk2OS0zNS4zNmMzLjkwNS0xLjM5IDguMTEtMi4xNCAxMi40ODQtMi4xNCAyMC42NTQgMCAzNy40NTMgMTYuODIgMzcuNDUzIDM3LjV6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0ibTM5OC4zMiAyNTUuOTk5YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PGc+PHBhdGggZD0ibTE4OC41ODYgMjU1Ljk5NmMwIDIwLjY4LTE2Ljc5OSAzNy41LTM3LjQ1MyAzNy41LTQuMzc1IDAtOC41NzktLjc1LTEyLjQ4NC0yLjE0LTE0LjUzMi01LjE2LTI0Ljk2OS0xOS4wNi0yNC45NjktMzUuMzZzMTAuNDM3LTMwLjIgMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMTg4LjU4NiAyNTUuOTk2YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PGc+PHBhdGggZD0ibTI5My40NTUgMjU1Ljk5NmMwIDIwLjY4LTE2Ljc5OSAzNy41LTM3LjQ1MyAzNy41LTQuMzc1IDAtOC41NzktLjc1LTEyLjQ4NC0yLjE0LTE0LjUzMi01LjE2LTI0Ljk2OS0xOS4wNi0yNC45NjktMzUuMzZzMTAuNDM3LTMwLjIgMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtMjkzLjQ1NSAyNTUuOTk2YzAgMjAuNjgtMTYuNzk5IDM3LjUtMzcuNDUzIDM3LjUtNC4zNzUgMC04LjU3OS0uNzUtMTIuNDg0LTIuMTQgMTQuNTMyLTUuMTYgMjQuOTY5LTE5LjA2IDI0Ljk2OS0zNS4zNnMtMTAuNDM3LTMwLjItMjQuOTY5LTM1LjM2YzMuOTA1LTEuMzkgOC4xMS0yLjE0IDEyLjQ4NC0yLjE0IDIwLjY1NCAwIDM3LjQ1MyAxNi44MiAzNy40NTMgMzcuNXoiIGZpbGw9IiNkY2VjZjQiLz48L2c+PC9nPjxwYXRoIGQ9Im01MTIgMjQ5LjczNWMwIDUzLjg4LTI2Ljg4IDEwNC40Mi03NS42OSAxNDIuMy00OC4yNCAzNy40NC0xMTIuMjggNTguMDctMTgwLjMxIDU4LjA3LTYuMjEgMC0xMi4zOC0uMTctMTguNTEtLjUxIDYxLjA4LTMuMzkgMTE3Ljk4LTIzLjUzIDE2MS44Mi01Ny41NiA0OC44MS0zNy44OCA3NS42OS04OC40MiA3NS42OS0xNDIuMyAwLTUzLjg5LTI2Ljg4LTEwNC40My03NS42OS0xNDIuMzEtNDMuODQtMzQuMDMtMTAwLjczLTU0LjE2LTE2MS44MS01Ny41NSA2LjEzLS4zNCAxMi4zLS41MSAxOC41LS41MSA2OC4wMyAwIDEzMi4wNyAyMC42MiAxODAuMzEgNTguMDYgNDguODEgMzcuODggNzUuNjkgODguNDIgNzUuNjkgMTQyLjMxeiIgZmlsbD0iI2IyMDA2ZSIvPjwvZz48L3N2Zz4=" /></button>
+                                <span class="post__footer--nb-of-comments">{{ post.comments.length }}</span>
                             </div>
-                            <div class="infos">
+                            <div class="post__footer--infos">
                                 <p class="created-at"> Créé le : {{ post.createdAt.slice(0,10).split('-').reverse().join('-') + ' à ' + post.createdAt.slice(11,16) }}</p>
                                 <p class="updated-at"> Modifié le : {{ post.updatedAt.slice(0,10).split('-').reverse().join('-') + ' à ' + post.updatedAt.slice(11,16) }}</p>
                             </div>
@@ -57,128 +64,121 @@
 </template>
 
 <script>
+import ModaleModify from '@/components/ModaleModify.vue';
 import axios from 'axios';
 
 
 
 export default {
-   name: 'Post',
-
-
-   data() {
-       return {
-           user_id: localStorage.getItem('userId'),
-           empty: false,
-           isAdmin: false,
-           commentText:'',
-           posts: [],
-           comments: []
-       }
-   },
-
-   mounted() {
-       this.getAllPost();
-   },
-
-   methods: { 
-       getAllPost() {
-           axios.get("http://localhost:3000/api/post/", {
-               headers: {
-                   'Content-Type': 'application/json',
-                   'Authorization': 'Bearer ' + localStorage.getItem("token")
-               }
-           })
-           .then((res) => {
-               console.log(res);
-               this.posts = res.data;
-           })
-           .catch((err) => {
-               console.log(err +'Impossible de récupérer les posts')
-           })
-       },
-
+    name: "Post",
+    components: {
+        ModaleModify,
+    },
+    data() {
+        return {
+            revele: false,
+            user_id: localStorage.getItem("userId"),
+            empty: false,
+            isAdmin: false,
+            commentText: "",
+            posts: [],
+            comments: []
+        };
+    },
+    mounted() {
+        this.getAllPost();
+    },
+    methods: {
+        getAllPost() {
+            axios.get("http://localhost:3000/api/post/", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then((res) => {
+                console.log(res);
+                this.posts = res.data;
+            })
+                .catch((err) => {
+                console.log(err + "Impossible de récupérer les posts");
+            });
+        },
         deletePost(id) {
             console.log(id);
             const postId = id;
-
             axios.delete("http://localhost:3000/api/post/" + postId, {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
                 }
             })
-            .then(() => {
-                alert('Votre post a été supprimé')
+                .then(() => {
+                alert("Votre post a été supprimé");
                 window.location.reload();
             })
-            .catch((err) => {
-                console.log(err + 'Impossible de supprimer le post')
-            })
+                .catch((err) => {
+                console.log(err + "Impossible de supprimer le post");
+            });
         },
-
         //COMMENTAIRES//
         createComment(id) {
             const postId = id;
             console.log(postId);
             const comment = {
-                userId: localStorage.getItem('userId'),
+                userId: localStorage.getItem("userId"),
                 content: this.commentText,
             };
-            console.log(comment)
-
+            console.log(comment);
             axios.post("http://localhost:3000/api/post/" + postId + "/comment", comment, {
-                
                 headers: {
-                    'Authorization' : 'Bearer ' + localStorage.getItem('token')
+                    "Authorization": "Bearer " + localStorage.getItem("token")
                 },
             })
-            .then(() => {
-                console.log('Votre commentaire a été publié');
+                .then(() => {
+                console.log("Votre commentaire a été publié");
                 window.location.reload();
             })
-            .catch((error) => {
-                alert(error + 'votre commentaire n\'a pas été publié, veuillez réessayer')
-            })
+                .catch((error) => {
+                alert(error + "votre commentaire n'a pas été publié, veuillez réessayer");
+            });
         },
-
         deleteComment(id) {
             const commentId = id;
             console.log(commentId);
-
             axios.delete("http://localhost:3000/api/post/comment/" + commentId, {
-                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
                 },
             })
-            .then(() => {
-                alert('Votre commentaire a été supprimé')
+                .then(() => {
+                alert("Votre commentaire a été supprimé");
                 window.location.reload();
             })
-            .catch((err) => {
-                console.log(err + 'Impossible de supprimer le commentaire')
-            })
+                .catch((err) => {
+                console.log(err + "Impossible de supprimer le commentaire");
+            });
         },
-
         showComments(id) {
             const postId = id;
             console.log(postId);
             const d1 = document.getElementById(postId);
             console.log(d1);
-
-            
-                if(getComputedStyle(d1).display !="none") {
-                    d1.style.display = "none";
-                } else {
-                    d1.style.display = "block";
-                }
-           
+            if (getComputedStyle(d1).display != "none") {
+                d1.style.display = "none";
+            }
+            else {
+                d1.style.display = "block";
+            }
         },
-
-
+        toggleModale(id) {
+            this.revele = !this.revele;
+            const postId = id;
+            console.log(postId);
+            localStorage.setItem("post_Id", postId);
+        }
     },
-
-
 }
 
 </script>
@@ -194,113 +194,130 @@ export default {
 }
     @media screen and (min-width: 769px) {
         .container-post {
-            width: 600px ;
+            width: 550px ;
         }
     }
-
-.content {
-    width: 100%;
-}
 .post {
     background-color: white;
     margin: 0px 0px 10px 0px;
     border-radius: 5px;
-}
-.img-post {
-    width: 95%;
-    object-fit: contain;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    &__header--username {
+        display: flex;
+        align-items: center;
+        font-size: 17px;
+        color: #FD2D01;
+        font-weight: bold;
+        padding: 10px;
+        text-align: left;
+        width: 50%;
+    }
+    &__header--username-name {
+        color: #FD2D01;
+    }
+    &__header--buttons {
+        display: flex;
+        padding: 10px;
+        width: 25%;
+    }
+    &__header--buttons-modify {
+        padding: 5px 5px 2px 5px !important;
+        margin-right: 0 !important;
+    }
+    &__header--buttons-modify-img {
+        height: 18px;
+        width: 20px;
+    }
+    &__header--buttons-delete {
+        padding: 5px 9px 5px 9px !important;
+        margin-right: 0 !important;
+    }
+    &__content--content {
+        width: 100%;
+    }
+    &__content--img {
+        width: 95%;
+        object-fit: contain;
+    }
+    &__footer {
+        display: flex;
+        flex-direction: raw;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+
+        @media screen and (min-width: 769px) {
+        width: 70%;
+        margin: auto;
+        }
+    }
+    &__footer--comments {
+        display: flex;
+        padding: 10px;
+        width: 40px;
+        display: inline-block;
+        img {
+            width: 36px;
+            height: 36px;
+        }
+        span {
+            font-size: 13px;
+            color: #000000;
+        }
+    }
+    &__footer--comments-btn {
+        border: none;
+        background: white;
+    }
+
+    &__footer--likes {
+        display: flex;
+        padding: 10px;
+        width: 40px;
+        display: inline-block;
+        img {
+            width: 33px;
+            height: 33px;
+        }
+        span {
+            font-size: 13px;
+            color: #000000;
+        }
+    }
+    &__footer--likes-btn {
+        border: none;
+        background: white;
+    }
+    &__footer--infos {
+        display: inline-block;
+        font-size: 10px;
+        font-style: italic;
+        text-align: right;
+        padding: 10px;
+        p {
+            margin: 2px 0px 2px 0px;
+        }
+    }
 }
 
-
-
-.username {
-    display: flex;
-    align-items: center;
-    font-size: 17px;
-    color: #FD2D01;
-    font-weight: bold;
-    padding: 10px;
-    text-align: left;
-    
-}
+//GENERAL
 a {
     text-decoration: none;
 }
-.user {
-    display: block;
-    color: #FD2D01;
-}
-.delete-btn {
-    padding: 5px !important;
-    display: block !important;
-    position: relative;
-    right: 5px;
-    margin-right: inherit !important;
-}
-.modify-btn-img {
-    height: 15px;
-    width: 15px;
-}
-.modify-btn {
-    padding: 5px !important;
-    display: block !important;
-    position: relative;
-    right: 5px;
-    margin-right: inherit !important;
-}
-
 
 h1 {
     font-size: 20px;
 }
 
-.post-footer {
-    display: flex;
-    flex-direction: raw;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-
-    @media screen and (min-width: 769px) {
-        width: 60%;
-        margin: auto;
-    }
-
-}
-
-.post-likes, .post-comments {
-    display: flex;
-    padding: 10px;
-    width: 30px;
-    display: inline-block;
-    img {
-        width: 25px;
-        height: 25px;
-    }
-    span {
-        font-size: 13px;
-        color: #000000;
-    }
-}
-
-
 /*.like-btn {
     background-color: white;
     border: none;
 }*/
-
-.infos {
-    display: inline-block;
-    
-    font-size: 10px;
-    font-style: italic;
-    text-align: right;
-    padding: 10px;
-    p {
-        margin: 2px 0px 2px 0px;
-    }
-}
-
 
 //BLOC COMMENTAIRES//
 .newcomment-container {
@@ -308,7 +325,7 @@ h1 {
     border-top: 2px groove #FFD7D7;
     display: flex;
     align-items: center;
-    padding: 5px;
+    padding: 5px 10px 5px 5px;
 }
 
 //NOUVEAU COMMENTAIRE
@@ -320,13 +337,13 @@ h1 {
         text-align: left;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
     &__form--btn {
-        position: relative;
-        right: 0px;
         width: 37px;
         height: 37px;
         margin: 0px !important;
+        padding: 5px 5px 5px 5px !important;
         display: inline;
     }
     &__form--text {
@@ -362,7 +379,7 @@ h1 {
         font-size: 13px;
     }
     &__deletebtn {
-        padding: 3px 4px 3px 4px !important;
+        padding: 2px 5px 4px 5px !important;
         margin: inherit !important;
     }
 }
