@@ -94,11 +94,20 @@ exports.getUserPosts = (req, res, next) => {
     
     models.post.findAll({ 
         where: { userId: req.params.id },
-        include: {
+        include: [{
             model: models.user,
             required: true,
             attributes: ['firstname', 'name']
         }, 
+        {
+            model: models.comment,
+            required: false,
+            include: {
+                model: models.user,
+                required: true,
+                attributes: ['firstname', 'name']
+            },
+        }],
         order: [['createdAt', 'DESC']],
     })
     .then((posts) => {
@@ -108,27 +117,36 @@ exports.getUserPosts = (req, res, next) => {
 
 };
 
-
-
-
-
 //UPDATE POST
 exports.modifyPost = (req, res, next) => {
+    console.log('modification en cours');
+    var data = '';
+    let imagePost = '';
+    console.log(req.file);
     if(req.file) {
-        console.log('req.body')
-       let data = {
+        console.log('on est dans le if');
+        //console.log(req.file);
+        imagePost = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+
+        data = {
            title: req.body.title,
-           content: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+           content: imagePost
        }
     } else {
-        let data = {
+        data = {
             title: req.body.title,
             content: req.body.content
         }
+        //console.log(data);
     }
+    console.log('test');
+    console.log(data);
     models.post.update(data, {where: { id: req.params.id}})
         .then(() => res.status(200).json({ message: 'Modification réussie'}))
-        .catch(error => res.status(400).json({ 'error': 'Modification impossible'}))
+        .catch((error) => {
+            console.log(error);
+            res.status(400).json({ 'error': 'Modification impossible'})
+        })
 
 };
 

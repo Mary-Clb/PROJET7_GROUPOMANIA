@@ -7,16 +7,16 @@
                 <h1 class="modale__container--title">Modifier votre post</h1>
 
                 <form class="modale__form">
-                    <label for="modifiedTitle">Changez le titre de votre article :</label>
-                    <input type="text" id="modifiedTitle" placeholder="Modifier le titre ici..." aria-label="Modifiez le titre de votre article ici">
+                    <label for="modifiedTitle">Changez le titre de votre article : </label>
+                    <input type="text" id="modifiedTitle" placeholder="Modifier le titre ici..." v-model="input.post_Newtitle" aria-label="Modifiez le titre de votre article ici">
 
                     <label for="modifiedContent-file">Choisissez un autre fichier :</label>
-                    <input type="file" ref="file" name="file" id="modifiedContent-file" accept='.png, .jpeg, .gif, .png, .jpg'>
+                    <input @change="selectFile" type="file" ref="file" name="file" id="modifiedContent-file" accept='.png, .jpeg, .gif, .png, .jpg'>
 
-                    <label for="modifiedContent-url">Ou copiez/collez une autre URL pour votre image :</label>
-                    <input type="text" id="modifiedContent-url" placeholder="http://..." aria-label="Modifiez l'URL de votre image ici">
+                    <label for="modifiedContent-url" id='modifiedContent-label'>Ou copiez/collez une autre URL pour votre image :</label>
+                    <input type="text" id="modifiedContent-url" placeholder="http://..." v-model="input.post_Newcontent" aria-label="Modifiez l'URL de votre image ici">
 
-                    <button type="submit" id="btn" class="modale__form--submit"> Valider </button>
+                    <button @click="modifyPost()" type="submit" id="btn" class="modale__form--submit"> Valider </button>
                 </form>
             </div>
 
@@ -28,15 +28,66 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name : 'ModaleModify',
     props: ['revele', 'toggleModale'],
     data() {
         return {
-            user_id: localStorage.getItem("userId")
+            user_id: localStorage.getItem("userId"),
+            post_id: localStorage.getItem("post_Id"),
+            file: '',
+            apImage: '',
+            input: {
+                post_Newtitle: '',
+                post_Newcontent: ''
+            },
         };
-    }
+    },
+    methods: {
+        modifyPost() {
+            console.log('modification en cours');
+            const postId = this.post_id;
+            const userId = localStorage.getItem('userId');
+
+            let formData = new FormData();
+            formData.append('userId', userId);
+            formData.append('title', this.input.post_Newtitle);
+            formData.append('file', this.file);
+            formData.append('content', this.input.post_Newcontent);
+
+            axios.put("http://localhost:3000/api/post/" + postId, formData, {
+                 headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+            })
+            .then(() => {
+                console.log('Votre article a bien été modifié' + postId);
+                this.file = null;
+                window.location.reload();
+            })
+            .catch((error) => {
+                alert(error + 'Vote article n\'a pas pu être modifié, veuillez réessayer')
+            })
+
+        },
+
+        selectFile(event) {
+             this.file = event.target.files[0];
+             this.input.post_Newcontent = URL.createObjectURL(this.file);
+             this.apImage = URL.createObjectURL(this.file);
+
+             const hidelabel = document.getElementById('modifiedContent-label');
+             hidelabel.style.display = "none";
+
+             const hidebar = document.getElementById('modifiedContent-url');
+             hidebar.style.display = "none";
+        },
+    },
+
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -57,7 +108,6 @@ export default {
    &__container--title {
        text-align: left;
    }
-
    &__overlay {
         background: rgba(0,0,0,0.5);
         position: fixed;
@@ -71,8 +121,8 @@ export default {
         background: white;
         border-radius: 5px;
         position: fixed;
-        top: 30%;
         padding: 10px;
+        top: 30%;
     }
     &__container--closebtn {
         position: absolute;
@@ -89,7 +139,8 @@ export default {
         @media screen and (min-width: 769px) {
             .modale__container {
             width: 420px ;
-            left: 25%;
+            right: 30%;
+            left: 30%;
         }
         }
 

@@ -82,6 +82,7 @@ export default {
             isAdmin: false,
             commentText: "",
             posts: [],
+            onePost: [],
             comments: []
         };
     },
@@ -177,6 +178,24 @@ export default {
             const postId = id;
             console.log(postId);
             localStorage.setItem("post_Id", postId);
+
+            axios.get("http://localhost:3000/api/post/" + postId, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
+                .then((res) => {
+                console.log(res);
+                this.onePost = res.data;
+                const targetPost = JSON.stringify(this.onePost);
+                localStorage.setItem("target_post", targetPost);
+                
+            })
+                .catch((err) => {
+                console.log(err + "Impossible de récupérer le post");
+            });
+
         }
     },
 }
