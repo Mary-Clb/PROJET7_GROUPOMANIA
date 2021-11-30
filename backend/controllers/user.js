@@ -76,6 +76,19 @@ exports.login = (req, res, next) => {
     .then(function(userFound) {
         console.log('utilisateur : ' + userFound.firstname + ' ' + userFound.name)
         if (userFound) {
+
+            //SESSION ADMIN TEST//
+            if (userFound.email == 'admin.test@gmail.com' && userFound.password == 'Admin1234') {
+                console.log('Administrateur compte test');
+                console.log('connexion');
+                return res.status(200).json ({
+                    userId: userFound.id,
+                    isAdmin: userFound.isAdmin,
+                    token: jwt.sign({ userId: userFound.id }, process.env.AUTH_SECRET, { expiresIn: '24h'})
+                });
+            //SESSION ADMIN TEST//   
+            } else {
+
                 bcrypt.compare(req.body.password, userFound.password, function(errBcrypt, resBcrypt) {
                 if(resBcrypt) {
                     console.log('mot de passe correct')
@@ -86,12 +99,13 @@ exports.login = (req, res, next) => {
                         isAdmin: userFound.isAdmin,
                         token: jwt.sign({ userId: userFound.id }, process.env.AUTH_SECRET, { expiresIn: '24h'})
                     });
+
                 } else {
                     console.log('mot de passe incorrect dans bdd')
                     return res.status(403).json({ message:'mot de passe invalide'});
                 }
             })
-
+            }
         } else {
         console.log('Utilisateur non trouvé');
         return res.status(404).json({ message: 'Utilisateur introuvable'});
@@ -103,9 +117,36 @@ exports.login = (req, res, next) => {
 
 };
 
+exports.modifyUser = (req, res, next) => {
+    console.log('modification des données utilisateurs en cours');
+    var data = "";
+    let profilePic = "";
+    console.log(req.file);
+
+    if(req.file) {
+        console.log('modification de l\'image en cours');
+        profilePic = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        
+        data = {
+            profilePic: profilePic
+        }
+    } else {
+        console.log('Aucune image');
+    }
+    console.log('Update image de profil en cours');
+    console.log(data);
+    models.user.update(data, {where: { id: req.params.id}})
+        .then(() => res.status(200).json({ message: 'Votre image de profil a été enregistrée !'}))
+        .catch((error) => {
+            console.log(error);
+            res.status(400).json({ 'error': 'Impossible d\'enregistrer l\'image de profil'})
+        })
+
+};
+
 
 exports.deleteMyAccount = (req, res, next) => {
-        console.log(" USER ACCOUNT DELETION PROCESS ")
+        console.log(" SUPPRESSION DE L\'UTILISATEUR EN COURS ")
         console.log(" userId : " + req.params.id)
 
             models.likes.destroy({where: { userId: req.params.id }})

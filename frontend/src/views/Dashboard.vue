@@ -24,7 +24,12 @@ export default {
         NewPost,
         Post,
         
-    }
+    },
+    data() {
+        return {
+            is_Admin: false,
+        }
+    },
 
 }
 </script>

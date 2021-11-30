@@ -124,7 +124,7 @@ exports.modifyPost = (req, res, next) => {
     let imagePost = '';
     console.log(req.file);
     if(req.file) {
-        console.log('on est dans le if');
+        console.log('modification de l\'image en cours');
         //console.log(req.file);
         imagePost = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
@@ -139,7 +139,7 @@ exports.modifyPost = (req, res, next) => {
         }
         //console.log(data);
     }
-    console.log('test');
+    console.log('Update ok');
     console.log(data);
     models.post.update(data, {where: { id: req.params.id}})
         .then(() => res.status(200).json({ message: 'Modification réussie'}))

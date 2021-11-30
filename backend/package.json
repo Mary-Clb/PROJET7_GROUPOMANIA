@@ -21,6 +21,7 @@
     "mysql2": "^2.3.0",
     "password-validator": "^5.1.1",
     "sequelize": "^6.1.0",
+    "sequelize-fixtures": "^1.2.0",
     "validate-mail": "^1.1.0"
   }
 }

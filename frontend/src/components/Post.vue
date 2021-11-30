@@ -11,7 +11,7 @@
                <router-link  :to="{ name: 'UserProfile', params: { userId: post.user.id } }"><span class="post__header--username-name">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span></router-link>
             </div>
             <div class="post__header--buttons">   
-               <button id="btn" type="button" class="post__header--buttons-modify" v-if="post.userId == user_id" @click="toggleModale(post.id)"> <img src="../assets/wheel.svg" class="post__header--buttons-modify-img" alt="modifier le commmentaire"></button>
+               <button id="btn" type="button" class="post__header--buttons-modify" v-if="post.userId == user_id"  @click="toggleModale(post.id)"> <img src="../assets/wheel.svg" class="post__header--buttons-modify-img" alt="modifier le commmentaire"></button>
                <button id="btn" type="button" class="post__header--buttons-delete" v-if="post.userId == user_id" @click="deletePost(post.id)" > X </button>
             </div>   
             </div>    
@@ -25,7 +25,7 @@
                     <!--FOOTER-->
                         <div class="post__footer">
                             <div class="post__footer--likes">
-                                <button class="post__footer--likes-btn" type="button"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTExLjk5OSA1MTEuOTk5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTEuOTk5IDUxMS45OTk7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiNFQzU1Njk7IiBkPSJNNDEyLjQxLDBIOTkuNTg5QzQ3LjUzMSwwLDUuMzMyLDQyLjIwMSw1LjMzMiw5NC4yNTd2MjA1LjE3MmMwLDUyLjA1Nyw0Mi4yMDEsOTQuMjU3LDk0LjI1Nyw5NC4yNTcNCgloNDQuODk0YzIuMTM2LDAsMy44NjcsMS43MzEsMy44NjcsMy44Njd2MTAxLjIwN2MwLDExLjk2NiwxNC42MzcsMTcuNzY4LDIyLjgzNCw5LjA1bDEwNi4xODgtMTEyLjkwNg0KCWMwLjczMS0wLjc3OCwxLjc1MS0xLjIxOCwyLjgxOC0xLjIxOGgxMzIuMjJjNTIuMDU3LDAsOTQuMjU3LTQyLjIwMSw5NC4yNTctOTQuMjU3Vjk0LjI1N0M1MDYuNjY3LDQyLjIwMSw0NjQuNDY2LDAsNDEyLjQxLDB6Ii8+DQo8cGF0aCBzdHlsZT0iZmlsbDojRTYzOTUwOyIgZD0iTTE4OC4wMDUsMzU4LjUwOWMwLTIuMjQ5LTEuNjc2LTQuMDcyLTMuNzQ0LTQuMDcyaC00My40NjJjLTUwLjM5NiwwLTkxLjI1LTQ0LjQzOS05MS4yNS05OS4yNTcNCglWMzkuMTIzYzAtOS4yNzYsMS4xNzQtMTguMjUzLDMuMzYxLTI2Ljc3QzI0LjQ4OSwyOC41ODcsNS4zMzIsNTkuMTg0LDUuMzMyLDk0LjI1N3YyMDUuMTcyYzAsNTIuMDU2LDQyLjIwMSw5NC4yNTcsOTQuMjU3LDk0LjI1Nw0KCWg0NC44OTRjMi4xMzYsMCwzLjg2NywxLjczMiwzLjg2NywzLjg2N3YxMDEuMjA3YzAsMTEuOTY2LDE0LjYzNywxNy43NjgsMjIuODM0LDkuMDVsMTYuODItMTcuODg1VjM1OC41MDlIMTg4LjAwNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNFQzU1Njk7IiBkPSJNMzYxLjkwOCwxMjIuMzI1TDM2MS45MDgsMTIyLjMyNWMtMjMuOTMxLTIzLjkzMS02Mi43MzEtMjMuOTMxLTg2LjY2MywwbC0xMy41MTgsMTMuNTE4DQoJYy0zLjIyMywzLjIyMy04LjQ1LDMuMjIzLTExLjY3MywwbC0xMy4zMDItMTMuMzAyYy0yMy45MzEtMjMuOTMxLTYyLjczMS0yMy45MzEtODYuNjYzLDBsMCwwDQoJYy0yMy45MzEsMjMuOTMxLTIzLjkzMSw2Mi43MzEsMCw4Ni42NjNsOTkuOTczLDk5Ljk3M2MzLjIyMywzLjIyMyw4LjQ1LDMuMjIzLDExLjY3MywwbDEwMC4xNzItMTAwLjE4OQ0KCUMzODUuODM5LDE4NS4wNTYsMzg1LjgzOSwxNDYuMjU3LDM2MS45MDgsMTIyLjMyNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGRkY1RjU7IiBkPSJNMzYxLjkwOCwxMjIuMzI1TDM2MS45MDgsMTIyLjMyNWMtMjMuOTMxLTIzLjkzMS02Mi43MzEtMjMuOTMxLTg2LjY2MywwbC0xMy41MTgsMTMuNTE4DQoJYy0zLjIyMywzLjIyMy04LjQ1LDMuMjIzLTExLjY3MywwbC0xMy4zMDItMTMuMzAyYy0yMy45MzEtMjMuOTMxLTYyLjczMS0yMy45MzEtODYuNjYzLDBsMCwwDQoJYy0yMy45MzEsMjMuOTMxLTIzLjkzMSw2Mi43MzEsMCw4Ni42NjNsOTkuOTczLDk5Ljk3M2MzLjIyMywzLjIyMyw4LjQ1LDMuMjIzLDExLjY3MywwbDEwMC4xNzItMTAwLjE4OQ0KCUMzODUuODM5LDE4NS4wNTYsMzg1LjgzOSwxNDYuMjU3LDM2MS45MDgsMTIyLjMyNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNEQ0U2RUI7IiBkPSJNMTgyLjE0NSwyMDkuMjA0Yy0yMy45MzEtMjMuOTMxLTIzLjkzMS02Mi43MzEsMC04Ni42NjNsMCwwYzcuODUtNy44NSwxNy4zMDQtMTMuMTA4LDI3LjMwMy0xNS44MDcNCgljLTIwLjQ4Ni01LjUzMi00My4yNzgtMC4yNzQtNTkuMzU4LDE1LjgwN2wwLDBjLTIzLjkzMSwyMy45MzEtMjMuOTMxLDYyLjczMSwwLDg2LjY2M2w5OS45NzMsOTkuOTczDQoJYzMuMjIzLDMuMjIzLDguNDUsMy4yMjMsMTEuNjczLDBsMTAuMTktMTAuMTkyTDE4Mi4xNDUsMjA5LjIwNHoiLz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K" /></button>
+                                <button v-if="this.is_Admin" class="post__footer--likes-btn" type="button"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTExLjk5OSA1MTEuOTk5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTEuOTk5IDUxMS45OTk7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiNFQzU1Njk7IiBkPSJNNDEyLjQxLDBIOTkuNTg5QzQ3LjUzMSwwLDUuMzMyLDQyLjIwMSw1LjMzMiw5NC4yNTd2MjA1LjE3MmMwLDUyLjA1Nyw0Mi4yMDEsOTQuMjU3LDk0LjI1Nyw5NC4yNTcNCgloNDQuODk0YzIuMTM2LDAsMy44NjcsMS43MzEsMy44NjcsMy44Njd2MTAxLjIwN2MwLDExLjk2NiwxNC42MzcsMTcuNzY4LDIyLjgzNCw5LjA1bDEwNi4xODgtMTEyLjkwNg0KCWMwLjczMS0wLjc3OCwxLjc1MS0xLjIxOCwyLjgxOC0xLjIxOGgxMzIuMjJjNTIuMDU3LDAsOTQuMjU3LTQyLjIwMSw5NC4yNTctOTQuMjU3Vjk0LjI1N0M1MDYuNjY3LDQyLjIwMSw0NjQuNDY2LDAsNDEyLjQxLDB6Ii8+DQo8cGF0aCBzdHlsZT0iZmlsbDojRTYzOTUwOyIgZD0iTTE4OC4wMDUsMzU4LjUwOWMwLTIuMjQ5LTEuNjc2LTQuMDcyLTMuNzQ0LTQuMDcyaC00My40NjJjLTUwLjM5NiwwLTkxLjI1LTQ0LjQzOS05MS4yNS05OS4yNTcNCglWMzkuMTIzYzAtOS4yNzYsMS4xNzQtMTguMjUzLDMuMzYxLTI2Ljc3QzI0LjQ4OSwyOC41ODcsNS4zMzIsNTkuMTg0LDUuMzMyLDk0LjI1N3YyMDUuMTcyYzAsNTIuMDU2LDQyLjIwMSw5NC4yNTcsOTQuMjU3LDk0LjI1Nw0KCWg0NC44OTRjMi4xMzYsMCwzLjg2NywxLjczMiwzLjg2NywzLjg2N3YxMDEuMjA3YzAsMTEuOTY2LDE0LjYzNywxNy43NjgsMjIuODM0LDkuMDVsMTYuODItMTcuODg1VjM1OC41MDlIMTg4LjAwNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNFQzU1Njk7IiBkPSJNMzYxLjkwOCwxMjIuMzI1TDM2MS45MDgsMTIyLjMyNWMtMjMuOTMxLTIzLjkzMS02Mi43MzEtMjMuOTMxLTg2LjY2MywwbC0xMy41MTgsMTMuNTE4DQoJYy0zLjIyMywzLjIyMy04LjQ1LDMuMjIzLTExLjY3MywwbC0xMy4zMDItMTMuMzAyYy0yMy45MzEtMjMuOTMxLTYyLjczMS0yMy45MzEtODYuNjYzLDBsMCwwDQoJYy0yMy45MzEsMjMuOTMxLTIzLjkzMSw2Mi43MzEsMCw4Ni42NjNsOTkuOTczLDk5Ljk3M2MzLjIyMywzLjIyMyw4LjQ1LDMuMjIzLDExLjY3MywwbDEwMC4xNzItMTAwLjE4OQ0KCUMzODUuODM5LDE4NS4wNTYsMzg1LjgzOSwxNDYuMjU3LDM2MS45MDgsMTIyLjMyNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGRkY1RjU7IiBkPSJNMzYxLjkwOCwxMjIuMzI1TDM2MS45MDgsMTIyLjMyNWMtMjMuOTMxLTIzLjkzMS02Mi43MzEtMjMuOTMxLTg2LjY2MywwbC0xMy41MTgsMTMuNTE4DQoJYy0zLjIyMywzLjIyMy04LjQ1LDMuMjIzLTExLjY3MywwbC0xMy4zMDItMTMuMzAyYy0yMy45MzEtMjMuOTMxLTYyLjczMS0yMy45MzEtODYuNjYzLDBsMCwwDQoJYy0yMy45MzEsMjMuOTMxLTIzLjkzMSw2Mi43MzEsMCw4Ni42NjNsOTkuOTczLDk5Ljk3M2MzLjIyMywzLjIyMyw4LjQ1LDMuMjIzLDExLjY3MywwbDEwMC4xNzItMTAwLjE4OQ0KCUMzODUuODM5LDE4NS4wNTYsMzg1LjgzOSwxNDYuMjU3LDM2MS45MDgsMTIyLjMyNXoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNEQ0U2RUI7IiBkPSJNMTgyLjE0NSwyMDkuMjA0Yy0yMy45MzEtMjMuOTMxLTIzLjkzMS02Mi43MzEsMC04Ni42NjNsMCwwYzcuODUtNy44NSwxNy4zMDQtMTMuMTA4LDI3LjMwMy0xNS44MDcNCgljLTIwLjQ4Ni01LjUzMi00My4yNzgtMC4yNzQtNTkuMzU4LDE1LjgwN2wwLDBjLTIzLjkzMSwyMy45MzEtMjMuOTMxLDYyLjczMSwwLDg2LjY2M2w5OS45NzMsOTkuOTczDQoJYzMuMjIzLDMuMjIzLDguNDUsMy4yMjMsMTEuNjczLDBsMTAuMTktMTAuMTkyTDE4Mi4xNDUsMjA5LjIwNHoiLz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K" /></button>
                                 <span class="post__footer-nb-of-likes">0</span>
                             </div>
                             <div class="post__footer--comments">   
@@ -74,20 +74,24 @@ export default {
     components: {
         ModaleModify,
     },
+
     data() {
         return {
+            is_Admin: false,
             revele: false,
             user_id: localStorage.getItem("userId"),
             empty: false,
-            isAdmin: false,
             commentText: "",
             posts: [],
             onePost: [],
             comments: []
         };
     },
+
     mounted() {
+        this.isUserAdmin();
         this.getAllPost();
+        
     },
     methods: {
         getAllPost() {
@@ -196,6 +200,12 @@ export default {
                 console.log(err + "Impossible de récupérer le post");
             });
 
+        },
+
+        isUserAdmin() {
+            this.is_Admin = localStorage.getItem('isAdmin');
+            console.log(this.is_Admin);
+            console.log(localStorage.getItem('isAdmin'));
         }
     },
 }

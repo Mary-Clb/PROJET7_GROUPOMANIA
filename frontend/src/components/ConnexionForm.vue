@@ -32,7 +32,8 @@ export default {
             errForEmpty: '',
             errForErr:'',
             email: '',
-            password: ''
+            password: '',
+            isAdmin : false,
         }
 
     },
@@ -55,13 +56,13 @@ export default {
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("userId", response.data.userId)
             localStorage.setItem("isAdmin", response.data.isAdmin)
-            /*const loggedUser = {
-                token: response.data.token,
-                userId: response.data.userId,
-                firstname: response.data.firstname,
-                name: response.data.name
+
+            if (response.data.isAdmin == 1) {
+                console.log('Vous êtes sur le compte test administrateur');
+                this.isAdmin = true;
+                console.log(this.isAdmin);
             }
-            localStorage.setItem('loggedUser', JSON.stringify(loggedUser));*/
+
             alert('Bienvenue , vous êtes maintenant connecté')
             router.push({ path: '/dashboard'});
         })

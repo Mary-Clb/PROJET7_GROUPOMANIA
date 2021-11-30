@@ -1,0 +1,12 @@
+[
+    {
+        "model":"user",
+        "data": {
+            "firstname": "Administrateur",
+            "name": "Test",
+            "email": "admin.test@gmail.com",
+            "password": "Admin1234",
+            "isAdmin": "1"
+        }
+    }
+]

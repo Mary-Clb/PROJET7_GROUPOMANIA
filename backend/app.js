@@ -7,7 +7,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
+
+const sequelize_fixtures = require('sequelize-fixtures');
 const dataBase = require('./models');
+
 
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
@@ -30,6 +33,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 dataBase.sequelize.sync()
+
+sequelize_fixtures.loadFile('./fixtures/test_admin.json', dataBase).then(function(){
+  LoadAdminDatas();
+});
 
 //ROUTES
 app.use("/images", express.static(path.join(__dirname, "images")));
