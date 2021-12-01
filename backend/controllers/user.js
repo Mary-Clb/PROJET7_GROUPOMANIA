@@ -78,7 +78,7 @@ exports.login = (req, res, next) => {
         if (userFound) {
 
             //SESSION ADMIN TEST//
-            if (userFound.email == 'admin.test@gmail.com' && userFound.password == 'Admin1234') {
+            if (userFound.email == process.env.USER_ADMIN_EMAIL && userFound.password == process.env.USER_ADMIN_PWD) {
                 console.log('Administrateur compte test');
                 console.log('connexion');
                 return res.status(200).json ({
@@ -145,18 +145,20 @@ exports.modifyUser = (req, res, next) => {
 };
 
 
-exports.deleteMyAccount = (req, res, next) => {
+exports.deleteAccount = (req, res, next) => {
         console.log(" SUPPRESSION DE L\'UTILISATEUR EN COURS ")
         console.log(" userId : " + req.params.id)
 
-            models.likes.destroy({where: { userId: req.params.id }})
-            models.comment.destroy({where: { userId: req.params.id }})
-            models.post.destroy({where: { userid: req.params.id }})
+            //models.likes.destroy({where: { userId: req.params.id }})
+            models.comment.destroy({where: { userId: req.params.id }});
+            models.post.destroy({where: { userid: req.params.id }});
             models.user.destroy({ where: { id: req.params.id }})
-                .then( () => res.status(200).json({message: "Votre compte a bien été supprimé"}))
-                .catch( err => {
-                    return res.status(401).json({ message: 'Impossible de supprimer l\'utilisateur'})
-                });
+            
+                .then( () => res.status(200).json({message: "Le compte a bien été supprimé"}))
+                .catch((error) => {
+                    console.log(error);
+                    res.status(401).json({ 'error': 'Impossible de supprimer l\'utilisateur'})
+                })
             };
 
 //RECUPERER INFOS DE 1 USER

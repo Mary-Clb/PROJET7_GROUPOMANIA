@@ -11,7 +11,7 @@
         </div>    
         <h1>{{ user.firstname }} {{ user.name }}</h1>
         <p>{{ user.email }}</p>
-        <button type=button id="btn" v-if=" user.id == user_Id" class="userinfos__deletebtn" @click="deleteAccount()">Supprimer le compte</button>
+        <button type=button id="btn" v-if="is_Admin" class="userinfos__deletebtn" @click="deleteAccount()">Supprimer le compte</button>
     </div>
 </template>
 
@@ -28,6 +28,7 @@ export default {
     },
     data() {
         return {
+            is_Admin: false,
             user_Id: localStorage.getItem('userId'),
             revele: false,
             profilePic: false,
@@ -37,12 +38,12 @@ export default {
     },
 
     mounted() {
+        this.isUserAdmin()
         this.getOneUser()
     },
 
     methods: {
         getOneUser() {
-            //const userId = localStorage.getItem('userId');
             const userId = this.$route.params.userId;
 
             axios.get("http://localhost:3000/api/auth/user/" + userId, {
@@ -66,31 +67,35 @@ export default {
         },
 
         deleteAccount() {
-            const userId = this.user_Id;
+            const user_Id = this.user.id;
+            if(this.is_Admin) {
+                
+                console.log('Vous allez procéder à la suppression d\'un compte utilisateur');
+                var conf = confirm('Administrateur : vous allez supprimer un compte utilisateur user :' + user_Id);
 
-            var conf = confirm("Voulez-vous vraiment supprimer votre compte ?");
-            if (conf == true) {
-                axios.delete("http://localhost:3000/api/auth/" + userId, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer " + localStorage.getItem("token")
-                    }
-                })
+                if (conf == true) {
+                    console.log('Démarrage de la suppression du compte de : ' + this.user.firstname + this.user.name);
+
+                    axios.delete("http://localhost:3000/api/auth/" + user_Id, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + localStorage.getItem("token")
+                        }
+                    })
                     .then(() => {
-                        alert("Votre compte a été supprimé. Vous allez être redirigé vers la page d'accueil")
-                        //window.location.reload();
-                        localStorage.clear()
+                        alert('Le compte a été supprimé avec succès. Vous allez être redirigé vers la page d\'accueil')
                         router.push({ path: '/'});
-                        
                     })
                     .catch((err) => {
-                        console.log(err + "Impossible de supprimer votre compte")
-                    });
+                        console.log(err + "Impossible de supprimer le compte")
+                    })
+                } else {
+                    console.log('Suppression de compte annulée')
+                }
 
-            } else {
-                console.log('Suppression du compte annulée');
+        } else {
+            alert('Vous n\'êtes pas administrateur : vous ne pouvez pas effectuer cette opération !')
             }
-
         },
 
         //MODALE
@@ -98,6 +103,12 @@ export default {
             this.revele = !this.revele;
             console.log('Utilisateur :' + this.user_Id)
         },
+
+        isUserAdmin() {
+            if(localStorage.isAdmin == 'true') {
+                this.is_Admin = true;
+            }
+        }
 
     }
 

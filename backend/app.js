@@ -32,8 +32,10 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//SYNCHRONISATION DE LA BDD
 dataBase.sequelize.sync()
 
+//FIXTURE A PARTIR D'UN FICHIER POUR CREATION AUTOMATIQUE COMPTE TEST ADMINISTRATEUR
 sequelize_fixtures.loadFile('./fixtures/test_admin.json', dataBase).then(function(){
   LoadAdminDatas();
 });

@@ -12,7 +12,7 @@
             </div>
             <div class="post__header--buttons">   
                <button id="btn" type="button" class="post__header--buttons-modify" v-if="post.userId == user_id" @click="toggleModale(post.id)"> <img src="../assets/wheel.svg" class="post__header--buttons-modify-img" alt="modifier le commmentaire"></button>
-               <button id="btn" type="button" class="post__header--buttons-delete" v-if="post.userId == user_id" @click="deletePost(post.id)" > X </button>
+               <button id="btn" type="button" class="post__header--buttons-delete" v-if="post.userId == user_id || is_Admin" @click="deletePost(post.id)" > X </button>
             </div>   
             </div>    
                     <!--TITLE + IMG-->
@@ -51,7 +51,7 @@
                                 <div class="comment__username">
                                     <div>{{ comment.user.firstname + ' ' }}{{ comment.user.name.toUpperCase()}}</div>
                                     <div class="comment__date">Ajouté le : {{comment.createdAt.slice(0,10).split('-').reverse().join('-') }}</div>
-                                    <button id="btn" type="button" class="comment__deletebtn" v-if="comment.userId == user_id" @click="deleteComment(comment.id)" > x </button>
+                                    <button id="btn" type="button" class="comment__deletebtn" v-if="comment.userId == user_id || is_Admin" @click="deleteComment(comment.id)" > x </button>
                                 </div>
                                 <div class="comment__content">
                                     <div>{{ comment.content }}</div>
@@ -76,6 +76,7 @@ export default {
     },
     data() {
         return {
+            is_Admin: false,
             revele: false,
             user_id: localStorage.getItem("userId"),
             empty: false,
@@ -87,6 +88,7 @@ export default {
         };
     },
     mounted() {
+        this.isUserAdmin();
         this.getUserPosts();
     },
     methods: {
@@ -198,6 +200,12 @@ export default {
                 console.log(err + "Impossible de récupérer le post");
             });
 
+        },
+
+        isUserAdmin() {
+            if(localStorage.isAdmin == 'true') {
+                this.is_Admin = true;
+            }
         }
     },
 }

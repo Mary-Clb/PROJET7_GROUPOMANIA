@@ -12,11 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.likes.belongsTo(models.user, {
+        onDelete: 'cascade',
+        hooks: true,
         foreignKey: {
           allowNull: false
         }
+        
       }),
       models.likes.belongsTo(models.post, {
+        hooks: true,
+        onDelete: 'cascade',
         foreignKey: {
           allowNull: false
         }
