@@ -150,10 +150,6 @@ exports.modifyPost = (req, res, next) => {
 
 };
 
-
-
-
-
 //DELETE POST
 exports.deletePost = (req, res, next) => {
     models.post.findOne({

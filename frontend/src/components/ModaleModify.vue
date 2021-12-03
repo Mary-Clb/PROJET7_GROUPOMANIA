@@ -8,7 +8,7 @@
 
                 <form class="modale__form">
                     <label for="modifiedTitle">Changez le titre de votre article : </label>
-                    <input type="text" id="modifiedTitle" placeholder="Modifier le titre ici..." v-model="input.post_Newtitle" aria-label="Modifiez le titre de votre article ici">
+                    <input type="text" id="modifiedTitle" placeholder="Modifier le titre ici..." v-model="input.post_Newtitle" aria-label="Modifiez le titre de votre article ici" required>
 
                     <label for="modifiedContent-file">Choisissez un autre fichier :</label>
                     <input @change="selectFile" type="file" ref="file" name="file" id="modifiedContent-file" accept='.png, .jpeg, .gif, .png, .jpg'>
@@ -57,6 +57,24 @@ export default {
             formData.append('file', this.file);
             formData.append('content', this.input.post_Newcontent);
 
+            var inputTitle = document.getElementById('modifiedTitle');
+            if (!inputTitle.validity.valid) {
+                
+                alert('champs title non valide');
+                return false
+            }
+
+            var inputImage = document.getElementById('modifiedContent-file');
+            var inputContent = document.getElementById('modifiedContent-url');
+
+            console.log(inputImage.value);
+            console.log(inputContent.value);
+            if (inputImage.value == '' && inputContent.value == '') {
+                alert('Veuillez choisir un fichier ou coller une URL');
+                return false
+            }
+
+
             axios.put("http://localhost:3000/api/post/" + postId, formData, {
                  headers: {
                     "Authorization": "Bearer " + localStorage.getItem("token")
@@ -65,7 +83,7 @@ export default {
             .then(() => {
                 console.log('Votre article a bien été modifié' + postId);
                 this.file = null;
-                window.location.reload();
+                //window.location.reload();
             })
             .catch((error) => {
                 alert(error + 'Vote article n\'a pas pu être modifié, veuillez réessayer')
