@@ -1,10 +1,10 @@
 <template>
     <Header />
-    <router-link to="/" id="link" class="link-home">Accueil</router-link>
-    <div class="page-container"> 
+    <nav><router-link to="/" id="link" class="link-home">Accueil</router-link></nav>
+    <main class="page-container"> 
         <UserInfos />  
         <UserPosts />
-    </div> 
+    </main> 
 </template>
 
 <script>

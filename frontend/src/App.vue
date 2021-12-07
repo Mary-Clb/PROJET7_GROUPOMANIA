@@ -10,7 +10,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #DB2600;
+  //color: #2c3e50;
   box-sizing: border-box;
 }
 
@@ -34,7 +35,7 @@
   border-radius: 10px;
   box-shadow: 3px 3px #daC1c1;
   color: white;
-  background-color: #FD2D01;
+  background-color: #DB2600;
   font-size: 17px;
   font-weight: bold;
   display: inline-block;
@@ -56,7 +57,7 @@ body {
 }
 
 h1, p, label {
-  color: #FD2D01;
+  color: #DB2600;
 }
 
 #container-form {
@@ -93,7 +94,7 @@ input {
 #link {
   width:70px;
   text-align: center;
-  color: #fd2d01;
+  color: #DB2600;
   font-size: 17px;
   font-weight: bold;
   margin: auto;

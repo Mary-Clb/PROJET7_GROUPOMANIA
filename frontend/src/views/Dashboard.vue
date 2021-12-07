@@ -3,11 +3,11 @@
     <Navbar />
 
 
-    <div id="page-container">
+    <main id="page-container">
        
         <NewPost />
         <Post />
-    </div>
+    </main>
 </template>
 
 <script>

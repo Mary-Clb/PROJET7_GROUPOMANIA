@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
+  <main class="home">
     <Header />
     <ConnexionForm v-if="!isconnected" />
-  </div>
+  </main>
 </template>
 
 <script>

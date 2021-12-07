@@ -1,6 +1,6 @@
 <template>
     <div id="container-form">
-        <form @submit.prevent="Signup(event)" id="login-form">
+        <form @submit.prevent="Signup()" id="login-form">
             <h1>Inscrivez-vous</h1>
                 <label for="signup-firstname">Prénom</label>
                 <input type="text" id="signup-firstname" placeholder="Saississez votre prénom" v-model="input.firstName" aria-label="Ecrivez votre prénom" required>
@@ -14,7 +14,7 @@
                 <label for="connexion-password">Mot de passe</label>
                 <input type="password" id="connexion-password" placeholder=" Saisissez votre mot de passe" v-model="input.password" aria-label="Ecrivez votre mot de passe" required>
 
-                <button type="submit" id="btn" >S'inscrire</button>
+                <button type="submit" id="btn" alt="Valider l'inscription" >S'inscrire</button>
                 <div v-show="invalid" class="InvalidMsg" key="invalid">{{ errForEmpty }}</div>
 
                     <div class="subscribe-link">

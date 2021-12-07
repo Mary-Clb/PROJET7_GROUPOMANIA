@@ -158,10 +158,6 @@ export default {
         object-fit: contain;
     }
 }
-
-h2 {
-    color: #FD2D01;
-}
 input {
     border: none;
     width: 98%;

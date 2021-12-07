@@ -158,10 +158,13 @@ h1 {
     padding: 10px;
     margin: inherit;
     margin-top: -30px;
+    color: #BB2600 ;
 }
 
 p {
     font-size: 17px;
+    font-weight: bold;
+    color: #BB2600;
     margin-top: inherit;
 }
 

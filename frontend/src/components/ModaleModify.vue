@@ -16,7 +16,7 @@
                     <label for="modifiedContent-url" id='modifiedContent-label'>Ou copiez/collez une autre URL pour votre image :</label>
                     <input type="text" id="modifiedContent-url" placeholder="http://..." v-model="input.post_Newcontent" aria-label="Modifiez l'URL de votre image ici">
 
-                    <button @click="modifyPost()" type="submit" id="btn" class="modale__form--submit"> Valider </button>
+                    <button @click="modifyPost($event)" type="submit" id="btn" class="modale__form--submit"> Valider </button>
                 </form>
             </div>
 
@@ -46,7 +46,8 @@ export default {
         };
     },
     methods: {
-        modifyPost() {
+        modifyPost(event) {
+            event.preventDefault()
             console.log('modification en cours');
             const postId = this.post_id;
             const userId = localStorage.getItem('userId');
@@ -58,36 +59,25 @@ export default {
             formData.append('content', this.input.post_Newcontent);
 
             var inputTitle = document.getElementById('modifiedTitle');
-            if (!inputTitle.validity.valid) {
-                
-                alert('champs title non valide');
-                return false
-            }
-
             var inputImage = document.getElementById('modifiedContent-file');
             var inputContent = document.getElementById('modifiedContent-url');
-
-            console.log(inputImage.value);
-            console.log(inputContent.value);
-            if (inputImage.value == '' && inputContent.value == '') {
-                alert('Veuillez choisir un fichier ou coller une URL');
+            if (!inputTitle.validity.valid || (inputImage.value == '' && inputContent.value == '')) {
+                alert('Veuillez remplir tous les champs');
                 return false
-            }
-
-
-            axios.put("http://localhost:3000/api/post/" + postId, formData, {
+            }else{
+                axios.put("http://localhost:3000/api/post/" + postId, formData, {
                  headers: {
                     "Authorization": "Bearer " + localStorage.getItem("token")
                 },
-            })
-            .then(() => {
-                console.log('Votre article a bien été modifié' + postId);
-                this.file = null;
-                //window.location.reload();
-            })
-            .catch((error) => {
-                alert(error + 'Vote article n\'a pas pu être modifié, veuillez réessayer')
-            })
+                })
+                .then(() => {
+                    console.log('Votre article a bien été modifié' + postId);
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    alert(error + 'Vote article n\'a pas pu être modifié, veuillez réessayer')
+                })
+            }
 
         },
 
