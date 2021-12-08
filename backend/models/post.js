@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false
         }
       }),
-      models.post.hasMany(models.likes),
       models.post.hasMany(models.comment)
     }
       

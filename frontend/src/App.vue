@@ -28,7 +28,7 @@
   }
 }
 
-#btn {
+.btn {
   margin: 10px;
   padding: 10px;
   border: none;

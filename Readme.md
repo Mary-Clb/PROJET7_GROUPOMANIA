@@ -36,7 +36,23 @@ $ npm run serve
 * LANCER LE SERVEUR BACKEND :
 
 Vous devez au préalable connecter votre BDD à l'application.
-Pour cela, copier le fichier ".env.example" situé dans le dossier backend, le renommer ".env" et compléter les variables de connexion avec vos identifiants.
+Pour cela, utiliser le fichier ".env.example" situé dans le dossier backend, le renommer ".env" et compléter les variables de connexion avec vos identifiants. Il se présente comme il suit :
+
+---
+AUTH_SECRET=
+DB_USER=
+DB_USERPWD=
+DB_HOST=
+DB_NAME=
+DB_DIALECT=
+
+USER_ADMIN_EMAIL=admin.test@gmail.com
+USER_ADMIN_PWD=Admin1234
+---
+
+Les identifiants du compte test administrateur ont été créés par défaut et ne doivent pas être modifiés.
+
+
 
 Ensuite, se placer dans le dossier backend de l'application :
 
@@ -69,6 +85,21 @@ Ensuite, connectez vous à l'aide de vos identifiants. Vous avez maintenant acc�
 * Supprimer vos posts
 * Commenter les posts
 * Supprimer vos commentaires
+
+* COMPTE ADMINISTRATEUR
+
+Un compte test administrateur a été créé par défaut. Pour y accéder, rendez vous sur la page de connexion et saisissez les identifiants suivant :
+
+Email : test.admin@gmail.com
+Mot de passe : Admin1234
+
+Avec ce compte, vous pouvez :
+
+* Lire tous les posts
+* Supprimer tous les posts
+* Commenter les posts
+* Supprimer tous les commentaires
+* Supprimer un compte utilisateur
 
 
 

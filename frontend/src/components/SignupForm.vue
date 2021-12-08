@@ -13,8 +13,9 @@
 
                 <label for="connexion-password">Mot de passe</label>
                 <input type="password" id="connexion-password" placeholder=" Saisissez votre mot de passe" v-model="input.password" aria-label="Ecrivez votre mot de passe" required>
+                <p class="connexion-password--msg">Votre mot de passe doit contenir minimum 8 caractères, au moins 1 lettre majuscule, au moins 1 chiffre et ne pas contenir d'espace </p>
 
-                <button type="submit" id="btn" alt="Valider l'inscription" >S'inscrire</button>
+                <button type="submit" class="btn" alt="Valider l'inscription" >S'inscrire</button>
                 <div v-show="invalid" class="InvalidMsg" key="invalid">{{ errForEmpty }}</div>
 
                     <div class="subscribe-link">
@@ -100,6 +101,11 @@ export default {
 .InvalidMsg {
     margin: 5px 0px 5px 0px;
     font-style: italic;
+}
+.connexion-password--msg {
+    font-style: italic;
+    font-size: 15px;
+
 }
 
 </style>

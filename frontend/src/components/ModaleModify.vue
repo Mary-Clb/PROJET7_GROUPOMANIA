@@ -3,7 +3,7 @@
     <div class="modale" v-if="revele">
         <div class="modale__overlay" >
             <div class="modale__container">
-                <button id="btn" type="button" class="modale__container--closebtn" @click="toggleModale"> X </button>
+                <button type="button" class="modale__container--closebtn btn" @click="toggleModale"> X </button>
                 <h1 class="modale__container--title">Modifier votre post</h1>
 
                 <form class="modale__form">
@@ -16,7 +16,7 @@
                     <label for="modifiedContent-url" id='modifiedContent-label'>Ou copiez/collez une autre URL pour votre image :</label>
                     <input type="text" id="modifiedContent-url" placeholder="http://..." v-model="input.post_Newcontent" aria-label="Modifiez l'URL de votre image ici">
 
-                    <button @click="modifyPost($event)" type="submit" id="btn" class="modale__form--submit"> Valider </button>
+                    <button @click="modifyPost($event)" type="submit" class="modale__form--submit btn"> Valider </button>
                 </form>
             </div>
 

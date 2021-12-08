@@ -17,7 +17,7 @@
            <label for="post-content--url" id='post-content--label'>Ou copiez l'URL de votre image :</label>
             <input type="text" id="post-content--url" placeholder="http://...." v-model="input.postContent" aria-label="Collez l'URL de l'image">
           </form>
-        <button id="btn" type="submit" @click="createPost()">Publiez !</button>
+        <button class="btn" type="submit" @click="createPost()">Publiez !</button>
 
     </div>
 </div>

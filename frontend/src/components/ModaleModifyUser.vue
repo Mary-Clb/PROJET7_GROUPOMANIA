@@ -3,7 +3,7 @@
     <div class="modale" v-if="revele">
         <div class="modale__overlay" >
             <div class="modale__container">
-                <button id="btn" type="button" class="modale__container--closebtn" @click="toggleModale"> X </button>
+                <button type="button" class="modale__container--closebtn btn" @click="toggleModale"> X </button>
                 <h1 class="modale__container--title">Modifier votre image de profil</h1>
 
                 <form class="modale__form">
@@ -11,7 +11,7 @@
                     <label for="modifiedContent-file">Choisissez un fichier :</label>
                     <input @change="selectFile" type="file" ref="file" name="file" id="modifiedContent-file" accept='.png, .jpeg, .gif, .png, .jpg'>
 
-                    <button type="submit" id="btn" class="modale__form--submit" @click="modifyUser()"> Valider </button>
+                    <button type="submit" class="modale__form--submit btn" @click="modifyUser()"> Valider </button>
                 </form>
             </div>
 

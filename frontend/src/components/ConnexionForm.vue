@@ -8,7 +8,7 @@
                 <label for="connexion-password">Mot de passe</label>
                 <input type="password" id="connexion-password" placeholder=" Saisissez votre mot de passe" v-model="password" required>
 
-                <button type="submit" id="btn">Connexion</button>
+                <button type="submit" class="btn">Connexion</button>
 
                     <div class="subscribe-link">
                             <p>Vous n'avez pas de compte ?</p>

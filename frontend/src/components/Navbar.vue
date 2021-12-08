@@ -1,7 +1,7 @@
 <template>
     <nav class="nav-container">
     <router-link id="link" :to="{ name: 'Profile', params: { userId: this.userId } }">Mon profil</router-link>
-    <button id="btn" type="submit" @click="deconnect()">Déconnexion</button>
+    <button class="btn" type="submit" @click="deconnect()">Déconnexion</button>
     </nav>
 </template>
 
