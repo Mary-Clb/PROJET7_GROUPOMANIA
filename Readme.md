@@ -36,19 +36,7 @@ $ npm run serve
 * LANCER LE SERVEUR BACKEND :
 
 Vous devez au préalable connecter votre BDD à l'application.
-Pour cela, utiliser le fichier ".env.example" situé dans le dossier backend, le renommer ".env" et compléter les variables de connexion avec vos identifiants. Il se présente comme il suit :
-
----
-$ AUTH_SECRET=
-$ DB_USER=
-$ DB_USERPWD=
-$ DB_HOST=
-$ DB_NAME=
-$ DB_DIALECT=
-
-$ USER_ADMIN_EMAIL=admin.test@gmail.com
-$ USER_ADMIN_PWD=Admin1234
----
+Pour cela, utiliser le fichier ".env.example" situé dans le dossier backend, le renommer ".env" et compléter les variables de connexion avec vos identifiants. 
 
 Les identifiants du compte test administrateur ont été créés par défaut et ne doivent pas être modifiés.
 
