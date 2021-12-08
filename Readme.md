@@ -74,6 +74,8 @@ Ensuite, connectez vous à l'aide de vos identifiants. Vous avez maintenant acc�
 * Commenter les posts
 * Supprimer vos commentaires
 
+
+
 * COMPTE ADMINISTRATEUR
 
 Un compte test administrateur a été créé par défaut. Pour y accéder, rendez vous sur la page de connexion et saisissez les identifiants suivant :
