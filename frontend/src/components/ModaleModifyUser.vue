@@ -76,6 +76,7 @@ export default {
 <style lang="scss" scoped>
 
 .modale {
+    z-index: 10;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -91,6 +92,7 @@ export default {
    
    &__container--title {
        text-align: left;
+       padding-right: 40px;
    }
    &__overlay {
         background: rgba(0,0,0,0.5);

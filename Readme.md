@@ -80,7 +80,7 @@ Ensuite, connectez vous à l'aide de vos identifiants. Vous avez maintenant acc�
 
 Un compte test administrateur a été créé par défaut. Pour y accéder, rendez vous sur la page de connexion et saisissez les identifiants suivant :
 
-Email : test.admin@gmail.com
+Email : admin.test@gmail.com
 Mot de passe : Admin1234
 
 Avec ce compte, vous pouvez :

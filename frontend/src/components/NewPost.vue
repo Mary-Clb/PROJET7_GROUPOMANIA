@@ -7,7 +7,8 @@
             <input type="text" id="post-title" placeholder="Titre..." aria-label="Ecrivez le titre ici" v-model="input.postTitle" required>
 
             <div class="post__glimpse" v-if="this.input.postContent">
-            <img :src="apImage" class="post__glimpse--img" alt="image de l'article" />
+            <img :src="apImage" class="post__glimpse--img" alt="image de l'article" v-if="this.file" />
+            <img :src="this.input.postContent" class="post__glimpse--img" alt="image de l'article" v-else />
             </div>
 
             <label for="post-content--file">Partagez son contenu :</label>
@@ -37,7 +38,6 @@ export default {
             file : '',
             input: {
                 postTitle : '',
-                //file: null,
                 postContent: ''
             },
             user: []
@@ -54,18 +54,6 @@ export default {
             const userId = localStorage.getItem('userId');
             console.log(this.input.postContent);
             console.log(this.file);
-            /*let content = '';
-            if (this.file) {
-            content = this.file;
-             } else {
-            content = this.input.postContent;
-            }
-
-           /* const postData = {
-                userId: userId,
-                title: this.input.postTitle,
-                content: content,
-           };*/
 
             let formData = new FormData();
             formData.append('userId', userId);
@@ -118,6 +106,7 @@ export default {
              const hidebar = document.getElementById('post-content--url');
              hidebar.style.display = "none";
         }, 
+
     }
 }
 </script>

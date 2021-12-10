@@ -62,7 +62,7 @@ export default {
             var inputImage = document.getElementById('modifiedContent-file');
             var inputContent = document.getElementById('modifiedContent-url');
             if (!inputTitle.validity.valid || (inputImage.value == '' && inputContent.value == '')) {
-                alert('Veuillez remplir tous les champs');
+                alert('Demande invalide. Veillez à remplir les champs image et titre et à entrer un titre valide');
                 return false
             }else{
                 axios.put("http://localhost:3000/api/post/" + postId, formData, {
@@ -123,6 +123,8 @@ export default {
         bottom: 0;
         left: 0;
         right: 0;
+        display: flex;
+        justify-content: center;
     }
 
     &__container {

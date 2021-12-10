@@ -11,8 +11,8 @@
                <router-link  :to="{ name: 'UserProfile', params: { userId: post.user.id } }"><span class="post__header--username-name">{{ post.user.firstname + ' ' }}{{ post.user.name.toUpperCase() }}</span></router-link>
             </div>
             <div class="post__header--buttons">   
-               <button id="btn" type="button" class="post__header--buttons-modify btn" v-if="post.userId == user_id"  @click="toggleModale(post.id)"> <img src="../assets/wheel.svg" class="post__header--buttons-modify-img" alt="modifier le post"></button>
-               <button id="btn" type="button" class="post__header--buttons-delete btn" v-if="post.userId == user_id || this.is_Admin" @click="deletePost(post.id)" alt="Supprimer le post" > X </button>
+               <button type="button" class="post__header--buttons-modify btn" v-if="post.userId == user_id"  @click="toggleModale(post.id)"> <img src="../assets/wheel.svg" class="post__header--buttons-modify-img" alt="modifier le post"></button>
+               <button type="button" class="post__header--buttons-delete btn" v-if="post.userId == user_id || this.is_Admin" @click="deletePost(post.id)" alt="Supprimer le post" > X </button>
             </div>   
             </div>    
                     <!--TITLE + IMG-->
@@ -37,7 +37,7 @@
                                   <div class="newcomments">
                                     <form class="newcomments__form">
                                         <input type="text" class="newcomments__form--text" v-model="commentText" placeholder="Votre commentaire..." aria-label="Ecrivez ici votre commentaire" required>
-                                        <button id="btn" class="newcomments__form--btn btn" type="submit" @click="createComment(post.id)"><img src="../assets/send.svg" alt="Publier le commentaire"></button>
+                                        <button class="newcomments__form--btn btn" type="submit" @click="createComment(post.id)"><img src="../assets/send.svg" alt="Publier le commentaire"></button>
                                     </form>
                                   </div>
                             </div> 
@@ -47,7 +47,7 @@
                                 <div class="comment__username">
                                     <div>{{ comment.user.firstname + ' ' }}{{ comment.user.name.toUpperCase()}}</div>
                                     <div class="comment__date">Ajouté le : {{comment.createdAt.slice(0,10).split('-').reverse().join('-') }}</div>
-                                    <button id="btn" type="button" class="comment__deletebtn btn" v-if="comment.userId == user_id || this.is_Admin" @click="deleteComment(comment.id)" alt="supprimer le commentaire" > x </button>
+                                    <button type="button" class="comment__deletebtn btn" v-if="comment.userId == user_id || this.is_Admin" @click="deleteComment(comment.id)" alt="supprimer le commentaire" > x </button>
                                 </div>
                                 <div class="comment__content">
                                     <div>{{ comment.content }}</div>

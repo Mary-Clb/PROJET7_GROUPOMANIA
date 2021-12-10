@@ -1,5 +1,5 @@
 <template>
-    <div id="container-form">
+    <main id="container-form">
         <form @submit.prevent="Signup()" id="login-form">
             <h1>Inscrivez-vous</h1>
                 <label for="signup-firstname">Prénom</label>
@@ -22,7 +22,7 @@
                             <router-link id="link" to="/">Se connecter</router-link>
                     </div>
         </form>
-    </div>
+    </main>
 </template>
 
 <script>
