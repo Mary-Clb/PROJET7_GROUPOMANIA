@@ -1,6 +1,17 @@
 # FORMATION DEVELOPPEUR WEB - OPENCLASSROOMS
-# PROJET 7 - CREER UN RESEAU SOCIAL D'ENTREPRISE
-## INSTALLATION DE L'APPLICATION :
+## PROJET 7 - CREER UN RESEAU SOCIAL D'ENTREPRISE
+### CONTEXTE :
+Créer une application web qui jouera le rôle de réseau social interne pour une entreprise. 
+
+> ### COMPETENCES ACQUISES : 
+> - Authentifier un utilisateur et maintenir sa session
+> - Personnaliser le contenu envoyé à un client web
+> - Gérer un stockage de données à l'aide de SQL
+> - Créer une application web avec Vue.js
+> - Utiliser un ORM (Sequelize) pour faciliter les actions CRUD sur la BDD, ainsi que la création de tables et le mapping
+> - Utiliser les standards préconisés par le WCAG pour sécuriser une application
+
+### INSTALLATION DE L'APPLICATION :
 
 * ENVIRONNEMENT NECESSAIRE :
     * Node.js, npm
@@ -9,7 +20,7 @@
 * CLONER LE REPERTOIRE :
 
 ```
-$ git clone https://github.com/Mary-Clb/Marie_Bressy_P7_06092021.git
+$ git clone https://github.com/Mary-Clb/PROJET7_GROUPOMANIA
 ```
 
 * LANCER L'APPLICATION (FRONTEND):
